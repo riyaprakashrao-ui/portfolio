@@ -11,6 +11,7 @@
   --display: "Bricolage Grotesque", -apple-system, "Helvetica Neue", Arial, sans-serif;
   --body: "DM Sans", -apple-system, "Helvetica Neue", Arial, sans-serif;
   --nav-height: 72px;
+  --page-gutter: 2rem;
 }
 
 * {
@@ -21,6 +22,8 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 [hidden] {
@@ -31,6 +34,7 @@ body {
   background: var(--white);
   color: var(--blue);
   font-family: var(--body);
+  overflow-x: clip;
 }
 
 h1,
@@ -51,7 +55,7 @@ h6 {
   right: 0;
   z-index: 10;
   height: var(--nav-height);
-  padding: 0 1.25rem;
+  padding: 0 var(--page-gutter);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -168,7 +172,7 @@ h6 {
   letter-spacing: -0.02em;
   text-align: center;
   line-height: 1;
-  padding: 0 1rem;
+  padding: 0 var(--page-gutter);
 }
 
 .scroll-hint {
@@ -189,7 +193,7 @@ h6 {
 .projects {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 1.5rem 2rem 8rem;
+  padding: 1.5rem var(--page-gutter) 8rem;
   scroll-margin-top: var(--nav-height);
 }
 
@@ -366,7 +370,7 @@ h6 {
   max-width: 900px;
   margin: 0 auto;
   min-height: calc(100vh - 5rem);
-  padding: calc(var(--nav-height) + 4rem) 2rem 6rem;
+  padding: calc(var(--nav-height) + 4rem) var(--page-gutter) 6rem;
 }
 
 .page h1 {
@@ -384,7 +388,7 @@ h6 {
   max-width: 1240px;
   margin: 0 auto;
   min-height: calc(100vh - 5rem);
-  padding: calc(var(--nav-height) + 4rem) 2rem 6rem;
+  padding: calc(var(--nav-height) + 4rem) var(--page-gutter) 6rem;
 }
 
 .about-copy {
@@ -404,7 +408,7 @@ h6 {
 .about-row h2 {
   font-family: var(--display);
   font-weight: 700;
-  font-size: clamp(1.35rem, 2.2vw, 1.85rem);
+  font-size: 1.85rem;
   line-height: 1.05;
   letter-spacing: -0.03em;
   text-transform: uppercase;
@@ -413,7 +417,7 @@ h6 {
 
 .about-row p {
   margin: 0;
-  font-size: 1.02rem;
+  font-size: 1.05rem;
   line-height: 1.55;
 }
 
@@ -430,7 +434,12 @@ h6 {
 @media (max-width: 800px) {
   .about {
     grid-template-columns: 1fr;
-    padding-top: calc(var(--nav-height) + 2.5rem);
+    padding-top: calc(var(--nav-height) + 2rem);
+  }
+
+  .about-row {
+    grid-template-columns: 1fr;
+    gap: 0.45rem;
   }
 
   .about-photo {
@@ -589,7 +598,7 @@ h6 {
 }
 
 .case-intro h1.is-long {
-  font-size: clamp(1.85rem, 3.2vw, 2.85rem);
+  font-size: clamp(2.6rem, 5vw, 4rem);
   line-height: 1.12;
   letter-spacing: -0.03em;
 }
@@ -604,6 +613,11 @@ h6 {
   margin: 1.1rem 0 2.5rem;
   font-size: 1.05rem;
   line-height: 1.5;
+}
+
+.case-section p,
+.case-teaser-note {
+  font-size: 1.05rem;
 }
 
 .case-gallery-page .tracker,
@@ -723,6 +737,7 @@ h6 {
   justify-content: space-between;
   gap: 1.5rem 2rem;
   width: 100%;
+  max-width: 100%;
 }
 
 .case-meta > div {
@@ -782,7 +797,7 @@ h6 {
 .case-section h3 {
   font-family: var(--display);
   font-weight: 400;
-  font-size: clamp(1.6rem, 3vw, 2.25rem);
+  font-size: clamp(1.85rem, 3vw, 2.25rem);
   line-height: 1.15;
   margin-bottom: 1.25rem;
 }
@@ -1511,7 +1526,7 @@ h6 {
   justify-content: space-between;
   gap: 1.5rem;
   width: 100%;
-  padding: 1.15rem 2.5rem;
+  padding: 1.15rem var(--page-gutter);
   background: var(--blue);
   color: var(--white);
 }
@@ -1571,11 +1586,15 @@ h6 {
 
 @media (max-width: 900px) {
   .case-meta {
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem 1.25rem;
   }
 
-  .case-meta > div {
-    flex: 1 1 calc(50% - 2rem);
+  .case-meta > div,
+  .case-meta > div:nth-child(3) {
+    flex: none;
+    min-width: 0;
   }
 
   .case-question-cards,
@@ -1632,29 +1651,54 @@ h6 {
 
 @media (max-width: 900px) {
   .case-sidebar {
-    position: static;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem 0.75rem;
     width: auto;
+    padding: 0.65rem var(--page-gutter);
     border-right: none;
     border-bottom: 1px solid rgba(10, 31, 214, 0.15);
+    overflow: visible;
+  }
+
+  .case-sidebar .nav-initials {
+    margin: 0;
+  }
+
+  .case-sidebar .nav-initials img {
+    width: 36px;
+  }
+
+  .case-back {
+    margin: 0;
+  }
+
+  .case-label,
+  .case-name {
+    display: none;
   }
 
   .case-sidebar .tracker {
     display: none;
   }
 
-  .case-name {
-    margin-bottom: 0;
-  }
-
   .case-main {
     margin-left: 0;
-    padding: 0 1.5rem 4rem;
+    padding: 0 var(--page-gutter) 4rem;
   }
 
   .case-topnav {
-    position: absolute;
-    top: 0;
-    right: 1.5rem;
+    position: static;
+    justify-content: flex-start;
+    padding: 0.85rem 0 0;
+  }
+
+  .case-intro {
+    padding-top: 0.75rem;
   }
 }
 
@@ -1670,7 +1714,7 @@ h6 {
   gap: 2rem;
   height: 100vh;
   margin-bottom: 6rem;
-  padding: calc(var(--nav-height) + 0.5rem) 2rem 2rem;
+  padding: calc(var(--nav-height) + 0.5rem) var(--page-gutter) 2rem;
 }
 
 /* Left third: instructions */
@@ -2268,20 +2312,92 @@ h6 {
   .paint-area {
     width: 100%;
     height: auto;
+    aspect-ratio: auto;
+  }
+
+  .paint {
+    height: auto;
+  }
+
+  .paint-window {
+    height: auto;
+  }
+
+  .paint-body {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 22px;
+  }
+
+  .paint-tools {
+    grid-row: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .tool-grid {
+    grid-template-columns: repeat(5, 38px);
+  }
+
+  .camera-controls {
+    flex: 1 1 140px;
+    flex-direction: row;
+    min-height: 72px;
+  }
+
+  .paint-canvas {
     aspect-ratio: 4 / 3;
+    min-height: 220px;
+  }
+
+  .scrollbar-y {
+    display: none;
+  }
+
+  .scrollbar-x {
+    grid-column: 1;
+  }
+
+  .paint-footer {
+    min-height: 0;
   }
 }
 
 @media (max-width: 720px) {
+  :root {
+    --page-gutter: 1.25rem;
+  }
+
   .grid {
     grid-template-columns: 1fr;
   }
 
-  .nav {
-    padding: 0 1.25rem;
+  .nav-links {
+    gap: 0.15rem;
   }
 
-  .nav-links {
-    gap: 1.25rem;
+  .nav a,
+  .case-topnav a {
+    padding: 0.4rem 0.5rem;
+  }
+
+  .case-hero-img,
+  .case-hero-img.is-photo {
+    width: 100%;
+    max-width: none;
+  }
+
+  .case-intro h1,
+  .case-intro h1.is-long {
+    font-size: 2.6rem;
+  }
+
+  .case-section h3 {
+    font-size: 1.85rem;
+  }
+
+  .case-bottombar {
+    flex-wrap: wrap;
+    row-gap: 0.75rem;
   }
 }
