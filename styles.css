@@ -117,7 +117,7 @@ h6 {
 
 @media (prefers-reduced-motion: no-preference) {
   .nav-links a[href="fun"],
-  .case-topnav a[href="fun"] {
+  .case-topnav a[href="../fun"] {
     animation: fun-rainbow 6s linear infinite;
   }
 
@@ -127,8 +127,8 @@ h6 {
    otherwise landing on blue-on-blue mid-cycle would make the text briefly disappear on hover. */
 .nav-links a[href="fun"]:hover,
 .nav-links a[href="fun"]:focus-visible,
-.case-topnav a[href="fun"]:hover,
-.case-topnav a[href="fun"]:focus-visible {
+.case-topnav a[href="../fun"]:hover,
+.case-topnav a[href="../fun"]:focus-visible {
   color: var(--white) !important;
 }
 

@@ -1,4 +1,12 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/capitalone", "destination": "/work/capitalone", "permanent": true },
+    { "source": "/junior-firefighter", "destination": "/work/junior-firefighter", "permanent": true },
+    { "source": "/fireflies", "destination": "/work/fireflies", "permanent": true },
+    { "source": "/colearn", "destination": "/work/colearn", "permanent": true },
+    { "source": "/kiosk", "destination": "/work/kiosk", "permanent": true },
+    { "source": "/ucsd-health", "destination": "/work/ucsd-health", "permanent": true }
+  ]
 }
