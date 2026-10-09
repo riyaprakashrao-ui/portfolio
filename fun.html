@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href="beetle-2.png" />
   <title>Beetle Friend</title>
-  <link rel="stylesheet" href="styles.css?v=frame1" />
+  <link rel="stylesheet" href="styles.css?v=booth1" />
 </head>
 <body>
   <nav class="nav">
@@ -149,6 +149,7 @@
             </div>
             <div class="hand-cursor" id="handCursor" hidden></div>
             <div class="countdown" id="countdown" hidden></div>
+            <button type="button" class="fingerpaint-done" id="fingerpaintDone" data-action="done" hidden>done drawing</button>
           </div>
 
           <div class="scrollbar scrollbar-y" aria-hidden="true">
@@ -192,9 +193,11 @@
   <dialog class="photo-dialog" id="photoDialog">
     <img id="photoImg" alt="You and your beetle friend" />
     <div class="photo-actions">
-      <a id="photoDownload" download="my-beetle-friend.png">download</a>
-      <button id="photoClose">close</button>
+      <button type="button" id="photoSave">download</button>
+      <a id="photoDownload" download="my-beetle-friend.jpg" hidden>download</a>
+      <button type="button" id="photoClose">close</button>
     </div>
+    <p class="photo-save-note" id="photoSaveNote" hidden>Press and hold the photo, then choose Save to Photos.</p>
   </dialog>
 
   <script src="fun.js"></script>

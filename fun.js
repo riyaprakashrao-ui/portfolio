@@ -148,8 +148,10 @@ function clearDrawing() {
 // (camera + hand tracking) is an optional toggle on top of it — these two strings make
 // that explicit depending on which one is currently active.
 const DRAW_HELP_MOUSE = paintHelp.innerHTML; // captured from the default copy already in the HTML
-const DRAW_HELP_CAMERA =
-  "Pinch your thumb and index finger together, like you're holding a pencil, to draw. Open them to drop it. Press <strong>space</strong> when you're done drawing, then use the hand tool to pick your beetle up and size it for the photo.";
+const touchUI = matchMedia("(hover: none), (pointer: coarse)").matches;
+const DRAW_HELP_CAMERA = touchUI
+  ? "Pinch your thumb and index finger together, like you're holding a pencil, to draw. Open them to drop it. Tap <strong>done drawing</strong> when you're finished, then use the hand tool to pick your beetle up and size it for the photo."
+  : "Pinch your thumb and index finger together, like you're holding a pencil, to draw. Open them to drop it. Press <strong>space</strong> when you're done drawing, then use the hand tool to pick your beetle up and size it for the photo.";
 const PLACE_HELP =
   "Drag your beetle to move it, drag the blue dot to resize it. Click the hand tool again when you're happy, then take the picture.";
 
@@ -534,6 +536,7 @@ document.addEventListener("click", (e) => {
   else if (b.dataset.action === "camera") stream ? stopCamera() : startCamera();
   else if (b.dataset.action === "fingerpaint") fingerPaintOn ? stopFingerPaint() : startFingerPaint();
   else if (b.dataset.action === "photo") takePhoto();
+  else if (b.dataset.action === "done") stopFingerPaint();
   else if (b.dataset.action === "grid") {
     state.showGrid = !state.showGrid;
     grid.hidden = !state.showGrid;
@@ -642,6 +645,7 @@ function stopCamera() {
     setFingerPaintLabels(false);
     syncCanvasInput();
   }
+  document.getElementById("fingerpaintDone").hidden = true;
   handCursor.hidden = true;
   resetHand();
   updateDrawHelp();
@@ -660,6 +664,7 @@ async function startFingerPaint() {
     fingerPaintOn = true;
     setFingerPaintLabels(true);
     syncCanvasInput();
+    document.getElementById("fingerpaintDone").hidden = false;
     updateDrawHelp();
     setDrawing(false);
     scheduleTracking();
@@ -678,6 +683,7 @@ function stopFingerPaint() {
   syncCanvasInput();
   handCursor.hidden = true;
   resetHand();
+  document.getElementById("fingerpaintDone").hidden = true;
   updateDrawHelp();
 }
 
@@ -955,10 +961,36 @@ async function takePhoto() {
   stage.classList.add("flash");
   setTimeout(() => stage.classList.remove("flash"), 300);
 
-  const url = out.toDataURL("image/png");
-  photoImg.src = url;
-  photoDownload.href = url;
+  const blob = await new Promise((resolve) => out.toBlob(resolve, "image/jpeg", 0.92));
+  if (photoUrl) URL.revokeObjectURL(photoUrl);
+  photoBlob = blob;
+  photoUrl = URL.createObjectURL(blob);
+  photoImg.src = photoUrl;
+  photoDownload.href = photoUrl;
+
+  const file = new File([blob], "my-beetle-friend.jpg", { type: "image/jpeg" });
+  const canShare = !!navigator.canShare?.({ files: [file] });
+  photoSave.textContent = touchUI && canShare ? "save to photos" : "download";
+  photoSaveNote.hidden = !(touchUI && !canShare);
   photoDialog.showModal();
 }
+
+let photoBlob = null;
+let photoUrl = null;
+const photoSave = document.getElementById("photoSave");
+const photoSaveNote = document.getElementById("photoSaveNote");
+
+photoSave.addEventListener("click", async () => {
+  const file = photoBlob && new File([photoBlob], "my-beetle-friend.jpg", { type: "image/jpeg" });
+  if (file && navigator.canShare?.({ files: [file] })) {
+    try {
+      await navigator.share({ files: [file], title: "My beetle friend" });
+      return;
+    } catch (err) {
+      if (err.name === "AbortError") return;
+    }
+  }
+  photoDownload.click();
+});
 
 document.getElementById("photoClose").addEventListener("click", () => photoDialog.close());
