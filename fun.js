@@ -78,7 +78,7 @@ const paintHelp = document.getElementById("paintHelp");
 const state = {
   tool: "brush",
   color: "#0016d4",
-  size: 14,
+  size: 6,
   showGrid: true,
 };
 
@@ -347,7 +347,8 @@ function strokeStart(p) {
 
 function strokeMove(p) {
   if (!stroke || !stroke.last) return;
-  if (distance(p, stroke.last) < MIN_STEP) return;
+  const minStep = fingerPaintOn && touchUI ? 5 : MIN_STEP;
+  if (distance(p, stroke.last) < minStep) return;
   stroke.points.push(p);
   if (stroke.points.length > STROKE_DWELL_WINDOW) stroke.points.shift();
 
@@ -361,7 +362,8 @@ function strokeMove(p) {
   let path = 0;
   for (let i = 1; i < stroke.points.length; i++) path += distance(stroke.points[i - 1], stroke.points[i]);
   const isDwelling = span < STROKE_DWELL_SPAN && path < STROKE_DWELL_PATH;
-  const window = isDwelling ? stroke.points.length : STROKE_SMOOTH_POINTS;
+  const movingWindow = fingerPaintOn && touchUI ? 5 : STROKE_SMOOTH_POINTS;
+  const window = isDwelling ? stroke.points.length : movingWindow;
 
   const smoothed = smoothedPoint(stroke.points, window);
   const mid = midpoint(stroke.last, smoothed);
@@ -618,7 +620,15 @@ async function startCamera() {
     if (!navigator.mediaDevices?.getUserMedia) throw new Error("unsupported");
     paintHelp.textContent = "asking for camera access…";
     stream = await navigator.mediaDevices.getUserMedia({
-      video: { width: 1280, height: 720, facingMode: "user" },
+      video: touchUI
+        ? {
+            facingMode: "user",
+            width: { ideal: 960 },
+            height: { ideal: 720 },
+            aspectRatio: { ideal: 4 / 3 },
+            frameRate: { ideal: 30, max: 30 },
+          }
+        : { facingMode: "user", width: { ideal: 1280 }, height: { ideal: 720 } },
       audio: false,
     });
     video.srcObject = stream;
@@ -737,8 +747,8 @@ class OneEuroFilter {
   }
 }
 
-const filterX = new OneEuroFilter(SMOOTH_MIN_CUTOFF, SMOOTH_BETA);
-const filterY = new OneEuroFilter(SMOOTH_MIN_CUTOFF, SMOOTH_BETA);
+const filterX = new OneEuroFilter(touchUI ? 0.22 : SMOOTH_MIN_CUTOFF, touchUI ? 0.015 : SMOOTH_BETA);
+const filterY = new OneEuroFilter(touchUI ? 0.22 : SMOOTH_MIN_CUTOFF, touchUI ? 0.015 : SMOOTH_BETA);
 
 const hand = {
   pos: null,
@@ -790,6 +800,7 @@ function pinchRatio(lm) {
 }
 
 let lastVideoTime = -1;
+let lastDetect = 0;
 
 // Switching tabs (or apps) shouldn't leave the beetle drawing on its own in the background —
 // whatever's in frame of the camera while you're not even looking at the page. Pause the video
@@ -834,10 +845,14 @@ function scheduleTracking() {
 
 function trackHand() {
   if (!fingerPaintOn || trackingPaused) return;
-  if (landmarker && video.readyState >= 2 && video.currentTime !== lastVideoTime) {
+  const now = performance.now();
+  // On a phone, reading the hand on every camera frame stalls the preview. Tracking a bit
+  // less often, then smoothing the points, keeps the picture itself steady.
+  if (landmarker && video.readyState >= 2 && video.currentTime !== lastVideoTime && (!touchUI || now - lastDetect >= 50)) {
+    lastDetect = now;
     lastVideoTime = video.currentTime;
-    const result = landmarker.detectForVideo(video, performance.now());
-    handleHand(result.landmarks[0], performance.now());
+    const result = landmarker.detectForVideo(video, now);
+    handleHand(result.landmarks[0], now);
   }
   scheduleTracking();
 }
