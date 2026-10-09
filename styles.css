@@ -116,8 +116,8 @@ h6 {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .nav-links a[href="fun.html"],
-  .case-topnav a[href="fun.html"] {
+  .nav-links a[href="fun"],
+  .case-topnav a[href="fun"] {
     animation: fun-rainbow 6s linear infinite;
   }
 
@@ -125,10 +125,10 @@ h6 {
 
 /* The usual hover/focus treatment (blue box, white text) always wins over the cycling color —
    otherwise landing on blue-on-blue mid-cycle would make the text briefly disappear on hover. */
-.nav-links a[href="fun.html"]:hover,
-.nav-links a[href="fun.html"]:focus-visible,
-.case-topnav a[href="fun.html"]:hover,
-.case-topnav a[href="fun.html"]:focus-visible {
+.nav-links a[href="fun"]:hover,
+.nav-links a[href="fun"]:focus-visible,
+.case-topnav a[href="fun"]:hover,
+.case-topnav a[href="fun"]:focus-visible {
   color: var(--white) !important;
 }
 
@@ -1105,12 +1105,24 @@ h6 {
   display: flex;
   justify-content: center;
   margin: 0;
+  container-type: inline-size;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .case-venn-diagram {
   position: relative;
+  flex-shrink: 0;
   width: 460px;
   height: 400px;
+  transform-origin: top left;
+}
+
+@container (max-width: 459px) {
+  .case-venn-diagram {
+    transform: scale(calc(100cqw / 460px));
+    margin-bottom: calc(400px * (100cqw / 460px) - 400px);
+  }
 }
 
 .case-venn-circle {
@@ -2365,7 +2377,7 @@ h6 {
 
 @media (max-width: 720px) {
   :root {
-    --page-gutter: 1.25rem;
+    --page-gutter: 24px;
   }
 
   .grid {
@@ -2374,11 +2386,61 @@ h6 {
 
   .nav-links {
     gap: 0.15rem;
+    margin-right: -0.4rem;
+  }
+
+  .nav-initials,
+  .case-sidebar .nav-initials,
+  .case-back,
+  .case-topnav {
+    margin-left: -0.4rem;
   }
 
   .nav a,
-  .case-topnav a {
-    padding: 0.4rem 0.5rem;
+  .case-topnav a,
+  .case-back,
+  .case-sidebar .nav-initials {
+    padding-inline: 0.4rem;
+  }
+
+  .projects,
+  .about,
+  .fun,
+  .page,
+  .case-main,
+  .case-sidebar,
+  .nav,
+  .case-bottombar {
+    padding-left: var(--page-gutter);
+    padding-right: var(--page-gutter);
+  }
+
+  .card-body {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .case-content img,
+  .case-content video,
+  .case-content svg,
+  .case-content table,
+  .about-photo img,
+  .card-image img,
+  .card-image video {
+    max-width: 100%;
+  }
+
+  .case-phone-video {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .case-venn {
+    justify-content: flex-start;
+  }
+
+  .case-bottombar-links {
+    gap: 0.85rem;
   }
 
   .case-hero-img,

@@ -1,3 +1,13 @@
+// Drop .html from the address bar. GitHub Pages already serves the same file without it.
+(function () {
+  const path = location.pathname;
+  if (!path.endsWith(".html")) return;
+  const clean = path.endsWith("/index.html")
+    ? path.slice(0, -"index.html".length)
+    : path.slice(0, -".html".length);
+  history.replaceState(null, "", clean + location.search + location.hash);
+})();
+
 // Replaces the mouse pointer with a blue dot. Over a project image it becomes a "see more" label.
 // Skipped on touch screens, where there's no pointer to replace.
 
