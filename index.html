@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Riya’s Portfolio</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav class="nav">
+    <a class="nav-initials" href="#hero">RR</a>
+    <ul class="nav-links">
+      <li><a href="#work">work</a></li>
+      <li><a href="about.html">about</a></li>
+      <li><a href="fun.html">fun</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero" id="hero">
+    <canvas id="trail"></canvas>
+    <h1>hello, my name is riya</h1>
+    <a class="scroll-hint" href="#work">see my work ↓</a>
+  </section>
+
+  <section class="projects" id="work">
+    <div class="grid">
+      <a class="card" href="project-1.html">
+        <div class="card-image is-mint">
+          <img src="assets/case-1/capital-one.gif" alt="" />
+        </div>
+        <div class="card-body">
+          <h3>Capital One</h3>
+          <p>Redesigning the design system documentation site</p>
+          <div class="tags"><span>ux design</span><span>research</span><span>design systems</span></div>
+        </div>
+      </a>
+
+      <a class="card" href="project-2.html">
+        <div class="card-image is-yellow">
+          <video src="assets/case-4/jrfirefighter.mov" autoplay muted loop playsinline></video>
+        </div>
+        <div class="card-body">
+          <h3>Junior Firefighter</h3>
+          <p>A wildfire safety web game for kids 7–9</p>
+          <div class="tags"><span>ux design</span><span>ux research</span></div>
+        </div>
+      </a>
+
+      <a class="card" href="project-3.html">
+        <div class="card-image is-olive is-poster">
+          <img class="card-poster-sheet" src="assets/case-3/poster.png" alt="" />
+        </div>
+        <div class="card-body">
+          <h3>Fireflies</h3>
+          <p>1st place design challenge winner for wildfire safety game concept</p>
+          <div class="tags"><span>ux research</span></div>
+        </div>
+      </a>
+
+      <a class="card" href="project-4.html">
+        <div class="card-image is-red">
+          <img src="assets/case-4/phone.png?v=4" alt="" />
+        </div>
+        <div class="card-body">
+          <h3>CoLearn</h3>
+          <p>UCSD Design Lab case study project</p>
+          <div class="tags"><span>ux design</span><span>branding</span><span>ux research</span></div>
+        </div>
+      </a>
+
+      <a class="card" href="project-5.html">
+        <div class="card-image is-lavender">
+          <img src="assets/case-5/kiosk.svg" alt="" />
+        </div>
+        <div class="card-body">
+          <h3>Kiosk</h3>
+          <p>Easing navigational tension at San Diego farmer’s markets</p>
+          <div class="tags"><span>ux design</span><span>ux research</span><span>physical prototyping</span></div>
+        </div>
+      </a>
+
+      <a class="card" href="project-6.html">
+        <div class="card-image is-mint is-poster">
+          <img class="card-poster-sheet" src="assets/case-6/condom-week.png" alt="" />
+        </div>
+        <div class="card-body">
+          <h3>UCSD Health</h3>
+          <p>Graphics for campus health campaigns</p>
+          <div class="tags"><span>graphic design</span></div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <footer class="case-bottombar">
+    <div class="case-bottombar-connect">
+      <img class="case-bottombar-beetle" src="assets/case-1/beetle-footer.png" alt="" />
+      <p>Let’s connect!</p>
+    </div>
+    <div class="case-bottombar-links">
+      <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="mailto:">Email</a>
+      <button class="to-top" aria-label="Back to top">↑</button>
+    </div>
+  </footer>
+
+  <script>
+    const SPACING = 70;     // px of mouse travel between beetles
+    const SIZE = 64;        // beetle width in px
+    const LIFETIME = 2500;  // ms before a beetle fully fades
+    const FADE = 800;       // ms of fade-out at the end of its life
+
+    const hero = document.getElementById("hero");
+    const canvas = document.getElementById("trail");
+    const ctx = canvas.getContext("2d");
+
+    const images = ["beetle-1.png", "beetle-2.png"].map((src) => {
+      const img = new Image();
+      img.src = src;
+      return img;
+    });
+
+    let beetles = [];
+    let last = null;
+    let travelled = 0;
+    let count = 0;
+
+    function resize() {
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = hero.clientWidth * dpr;
+      canvas.height = hero.clientHeight * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    resize();
+    addEventListener("resize", resize);
+
+    // Beetles aren't placed close enough to overlap these, so they stay readable.
+    const keepClear = [document.querySelector(".scroll-hint")];
+
+    function isKeepClear(x, y) {
+      const heroRect = hero.getBoundingClientRect();
+      const pad = SIZE * 0.75;
+      return keepClear.some((el) => {
+        const r = el.getBoundingClientRect();
+        const left = r.left - heroRect.left - pad;
+        const top = r.top - heroRect.top - pad;
+        return x > left && x < left + r.width + pad * 2 && y > top && y < top + r.height + pad * 2;
+      });
+    }
+
+    function onMove(x, y) {
+      if (!last) {
+        last = { x, y };
+        return;
+      }
+      const dx = x - last.x;
+      const dy = y - last.y;
+      const dist = Math.hypot(dx, dy);
+      if (dist === 0) return;
+
+      const angle = Math.atan2(dy, dx) + Math.PI / 2;
+      travelled += dist;
+
+      while (travelled >= SPACING) {
+        travelled -= SPACING;
+        const t = Math.min(Math.max(1 - travelled / dist, 0), 1);
+        const bx = last.x + dx * t;
+        const by = last.y + dy * t;
+        if (isKeepClear(bx, by)) continue;
+        beetles.push({
+          x: bx,
+          y: by,
+          angle,
+          img: images[count++ % images.length],
+          born: performance.now(),
+        });
+      }
+      last = { x, y };
+    }
+
+    hero.addEventListener("pointermove", (e) => {
+      const rect = hero.getBoundingClientRect();
+      onMove(e.clientX - rect.left, e.clientY - rect.top);
+    });
+    hero.addEventListener("pointerleave", () => (last = null));
+    addEventListener("scroll", () => (last = null), { passive: true });
+
+    function draw(now) {
+      ctx.clearRect(0, 0, hero.clientWidth, hero.clientHeight);
+      beetles = beetles.filter((b) => now - b.born < LIFETIME);
+
+      for (const b of beetles) {
+        if (!b.img.complete || !b.img.naturalWidth) continue;
+        const age = now - b.born;
+        const pop = Math.min(age / 150, 1);
+        const alpha = Math.min((LIFETIME - age) / FADE, 1);
+        const w = SIZE * (0.6 + 0.4 * pop);
+        const h = w * (b.img.naturalHeight / b.img.naturalWidth);
+
+        ctx.save();
+        ctx.globalAlpha = alpha;
+        ctx.translate(b.x, b.y);
+        ctx.rotate(b.angle);
+        ctx.drawImage(b.img, -w / 2, -h / 2, w, h);
+        ctx.restore();
+      }
+      requestAnimationFrame(draw);
+    }
+    requestAnimationFrame(draw);
+  </script>
+  <script src="cursor.js"></script>
+</body>
+</html>

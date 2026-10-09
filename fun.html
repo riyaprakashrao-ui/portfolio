@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beetle Friend Photo Booth</title>
+  <link rel="stylesheet" href="styles.css?v=hero69" />
+</head>
+<body>
+  <nav class="nav">
+    <a class="nav-initials" href="index.html">RR</a>
+    <ul class="nav-links">
+      <li><a href="index.html#work">work</a></li>
+      <li><a href="about.html">about</a></li>
+      <li><a href="fun.html" aria-current="page">fun</a></li>
+    </ul>
+  </nav>
+
+  <main class="fun">
+    <!-- Left third: instructions -->
+    <section class="guide-panel" aria-labelledby="fun-title">
+      <h1 id="fun-title">beetle friend photo booth</h1>
+      <p class="guide-intro">Need a hand drawing one? Follow these steps, or skip them and freestyle.</p>
+      <ol class="guide" aria-label="How to draw a beetle">
+        <li>
+          <div class="guide-img">
+            <img src="assets/fun/step-1.svg" alt="An oval for the beetle body" />
+          </div>
+          <p><strong>1.</strong> Draw an oval for the body</p>
+        </li>
+        <li>
+          <div class="guide-img">
+            <img src="assets/fun/step-2.svg" alt="A curve drawn across the beetle body" />
+          </div>
+          <p><strong>2.</strong> Draw a curve across the body</p>
+        </li>
+        <li>
+          <div class="guide-img">
+            <img src="assets/fun/step-3.svg" alt="A line from the middle of the curve to the bottom of the body" />
+          </div>
+          <p><strong>3.</strong> Draw a line from the middle of the curve to the bottom of the body</p>
+        </li>
+        <li>
+          <div class="guide-img">
+            <img src="assets/fun/step-4.svg" alt="Spots added to the beetle" />
+          </div>
+          <p><strong>4.</strong> Add some spots</p>
+        </li>
+        <li>
+          <div class="guide-img">
+            <img src="assets/fun/step-5.svg" alt="Antlers added to the beetle" />
+          </div>
+          <p><strong>5.</strong> Add some antlers</p>
+        </li>
+        <li>
+          <div class="guide-img">
+            <img src="assets/fun/step-6.svg" alt="A colored beetle friend" />
+          </div>
+          <p><strong>6.</strong> Use the fill tool to color your beetle friend!</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Right two-thirds: paint app -->
+    <div class="paint-area">
+    <section class="paint" aria-label="Beetle drawing app">
+      <div class="paint-window">
+        <div class="paint-menubar">
+          <details class="menu">
+            <summary>file</summary>
+            <div class="menu-items">
+              <button data-action="photo">take photo</button>
+              <button data-action="clear">new canvas</button>
+            </div>
+          </details>
+          <details class="menu">
+            <summary>edit</summary>
+            <div class="menu-items">
+              <button data-action="undo">undo</button>
+              <button data-action="clear">clear</button>
+            </div>
+          </details>
+          <details class="menu">
+            <summary>view</summary>
+            <div class="menu-items">
+              <button data-action="fingerpaint" data-fingerpaint-label>turn on finger paint</button>
+              <button data-action="camera" data-camera-label>turn on camera</button>
+              <button data-action="grid">hide grid</button>
+            </div>
+          </details>
+        </div>
+
+        <div class="paint-body">
+          <aside class="paint-tools" aria-label="Tools">
+            <div class="tool-grid">
+              <button data-tool="brush" class="is-active" data-tip="Pencil" aria-label="Pencil">
+                <svg viewBox="0 0 24 24"><path d="M15.5 4.5l4 4L9 19l-5 1 1-5z"/><path d="M13.5 6.5l4 4"/></svg>
+              </button>
+              <button data-tool="fill" data-tip="Fill" aria-label="Fill">
+                <svg viewBox="0 0 24 24"><path d="M5 11l6.5-6.5 7 7L12 18a2 2 0 01-2.8 0L5 13.8a2 2 0 010-2.8z"/><path d="M5 11.5h13"/><path d="M20 14.5s1.5 2 1.5 3a1.5 1.5 0 01-3 0c0-1 1.5-3 1.5-3z"/></svg>
+              </button>
+              <button data-tool="eraser" data-tip="Eraser" aria-label="Eraser">
+                <svg viewBox="0 0 24 24"><path d="M4.6 14.6l8.5-8.5a2 2 0 012.8 0l2 2a2 2 0 010 2.8l-8.4 8.6H8.8l-4.2-4.1a2 2 0 010-2.8z"/><path d="M9 10.5l4.5 4.5"/><path d="M13 19.5h7"/></svg>
+              </button>
+              <button data-tool="hand" data-tip="Pick up &amp; resize" aria-label="Pick up and resize your beetle">
+                <svg viewBox="0 0 24 24"><path d="M7.5 12.5V6a1.3 1.3 0 012.6 0v5.5"/><path d="M10.1 11.5V5a1.3 1.3 0 012.6 0v6.5"/><path d="M12.7 11.5V6a1.3 1.3 0 012.6 0v6"/><path d="M15.3 12v-2a1.3 1.3 0 012.6 0v5.5c0 2.8-2 5-4.8 5h-1.6c-1.8 0-2.7-.9-3.6-2.1l-2.4-3.2c-.5-.7-.2-1.8.7-2 .7-.2 1.3 0 1.7.6l1.4 1.7"/></svg>
+              </button>
+              <button data-action="undo" data-tip="Undo" aria-label="Undo">
+                <svg viewBox="0 0 24 24"><path d="M9 14L4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 010 11H11"/></svg>
+              </button>
+              <button data-size="3" data-tip="Small width" aria-label="Small width">
+                <svg viewBox="0 0 24 24"><circle class="solid" cx="12" cy="12" r="1.3"/></svg>
+              </button>
+              <button data-size="6" data-tip="Medium width" aria-label="Medium width">
+                <svg viewBox="0 0 24 24"><circle class="solid" cx="12" cy="12" r="2"/></svg>
+              </button>
+              <button data-size="14" class="is-active" data-tip="Large width" aria-label="Large width">
+                <svg viewBox="0 0 24 24"><circle class="solid" cx="12" cy="12" r="4"/></svg>
+              </button>
+              <button data-action="clear" data-tip="Clear canvas" aria-label="Clear canvas">
+                <svg viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M9 7V5a1 1 0 011-1h4a1 1 0 011 1v2"/><path d="M6 7l1 12a2 2 0 002 2h6a2 2 0 002-2l1-12"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
+              </button>
+            </div>
+
+            <div class="camera-controls">
+              <button data-action="fingerpaint" class="fingerpaint-toggle">
+                <svg viewBox="0 0 24 24"><path d="M9 15l7-7a2 2 0 112.8 2.8l-7 7"/><path d="M9 15c-1.3 0-2.5.6-3.1 1.8-.7 1.5-.1 3.3 1.4 4 1.5.7 3.3.1 4-1.4.5-1.1.3-2.3-.4-3.2"/></svg>
+                <span data-fingerpaint-label>turn on finger paint</span>
+              </button>
+              <button data-action="camera" class="camera-toggle">
+                <svg viewBox="0 0 24 24"><path d="M3 8.5A2.5 2.5 0 015.5 6h2l1.5-2h6l1.5 2h2A2.5 2.5 0 0121 8.5v9a2.5 2.5 0 01-2.5 2.5h-13A2.5 2.5 0 013 17.5z"/><circle cx="12" cy="13" r="3.5"/></svg>
+                <span data-camera-label>turn on camera</span>
+              </button>
+              <button data-action="photo" class="shutter">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle class="solid" cx="12" cy="12" r="5.5"/></svg>
+                <span>take picture</span>
+              </button>
+            </div>
+          </aside>
+
+          <div class="paint-canvas" id="stage">
+            <video id="video" playsinline muted></video>
+            <div class="paint-grid" id="grid"></div>
+            <canvas id="draw"></canvas>
+            <div class="sprite" id="sprite" hidden>
+              <img id="spriteImg" alt="Your beetle, ready to place" draggable="false" />
+              <button class="sprite-handle" id="spriteHandle" aria-label="Resize your beetle"></button>
+            </div>
+            <div class="hand-cursor" id="handCursor" hidden></div>
+            <div class="countdown" id="countdown" hidden></div>
+          </div>
+
+          <div class="scrollbar scrollbar-y" aria-hidden="true">
+            <span class="scroll-arrow">▲</span><span class="scroll-thumb"></span><span class="scroll-arrow">▼</span>
+          </div>
+          <div class="scrollbar scrollbar-x" aria-hidden="true">
+            <span class="scroll-arrow">◀</span><span class="scroll-thumb"></span><span class="scroll-arrow">▶</span>
+          </div>
+        </div>
+
+        <div class="paint-palette" aria-label="Colours">
+          <button data-color="#0016d4" data-tip="#0016d4" class="is-active" style="background: #0016d4" aria-label="Blue"></button>
+          <button data-color="#9fedbf" data-tip="#9fedbf" style="background: #9fedbf" aria-label="Mint"></button>
+          <button data-color="#f2ea71" data-tip="#f2ea71" style="background: #f2ea71" aria-label="Yellow"></button>
+          <button data-color="#ed1c28" data-tip="#ed1c28" style="background: #ed1c28" aria-label="Red"></button>
+          <button data-color="#c89cd6" data-tip="#c89cd6" style="background: #c89cd6" aria-label="Lavender"></button>
+          <button data-color="#666113" data-tip="#666113" style="background: #666113" aria-label="Olive"></button>
+          <button data-color="#ffffff" data-tip="#ffffff" style="background: #ffffff" aria-label="White"></button>
+        </div>
+
+        <div class="paint-footer">
+          <p class="paint-help" id="paintHelp" aria-live="polite">Draw on the canvas with your mouse or track pad. You can also enable finger painting to draw with your camera. When you're done, use the hand tool to pick your beetle up and size it for the photo.</p>
+        </div>
+      </div>
+    </section>
+    </div>
+  </main>
+
+  <footer class="case-bottombar">
+    <div class="case-bottombar-connect">
+      <img class="case-bottombar-beetle" src="assets/case-1/beetle-footer.png" alt="" />
+      <p>Let’s connect!</p>
+    </div>
+    <div class="case-bottombar-links">
+      <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="mailto:">Email</a>
+      <button class="to-top" aria-label="Back to top">↑</button>
+    </div>
+  </footer>
+
+  <dialog class="photo-dialog" id="photoDialog">
+    <img id="photoImg" alt="You and your beetle friend" />
+    <div class="photo-actions">
+      <a id="photoDownload" download="my-beetle-friend.png">download</a>
+      <button id="photoClose">close</button>
+    </div>
+  </dialog>
+
+  <script src="fun.js"></script>
+  <script src="cursor.js"></script>
+</body>
+</html>

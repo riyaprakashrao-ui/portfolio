@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kiosk</title>
+  <link rel="stylesheet" href="styles.css?v=hero68" />
+</head>
+<body class="case">
+  <aside class="case-sidebar">
+    <a class="nav-initials" href="index.html"><img src="beetle-2.png" alt="Home" /></a>
+    <a class="case-back" href="index.html#work">← back to projects</a>
+    <p class="case-label">case study</p>
+    <p class="case-name">Kiosk</p>
+    <ol class="tracker" aria-label="Sections"></ol>
+  </aside>
+
+  <div class="case-main">
+    <ul class="case-topnav">
+      <li><a href="index.html#work">work</a></li>
+      <li><a href="about.html">about</a></li>
+      <li><a href="fun.html">fun</a></li>
+    </ul>
+
+    <main class="case-content">
+      <header class="case-intro">
+        <h1>Kiosk</h1>
+        <p>
+          Built a kiosk to help ease navigational tension at San Diego farmer’s market through a
+          class project for DSGN 100 (Prototyping).
+        </p>
+
+        <div class="case-meta">
+          <div>
+            <p class="case-meta-label">Timeline</p>
+            <p class="case-meta-value">Jan – Mar 2025<br />3 months</p>
+          </div>
+          <div>
+            <p class="case-meta-label">Role</p>
+            <p class="case-meta-value">Researcher and Kiosk Builder</p>
+          </div>
+          <div>
+            <p class="case-meta-label">Tools</p>
+            <p class="case-meta-value">Figma, Miro, Inkscape, Epilog Laser</p>
+          </div>
+          <div>
+            <p class="case-meta-label">Team</p>
+            <p class="case-meta-value">4 designers</p>
+          </div>
+          <div>
+            <p class="case-meta-label">Disciplines</p>
+            <p class="case-meta-value">UX Research<br />UX Design<br />Physical Prototyping</p>
+          </div>
+        </div>
+      </header>
+
+      <section class="case-section" id="problem" data-nav="Problem">
+        <h2>Problem</h2>
+        <h3>Farmer’s markets can be chaotic</h3>
+        <p>
+          Farmer’s markets encourage healthy eating, bring community together, promote sustainability,
+          and support local farmers. Whether it is someone’s first time attending, vs their hundredth,
+          farmer’s markets are an exciting experience. However, they can tend to be chaotic, busy, and
+          unorganized, which can discourage customers from shopping.
+        </p>
+      </section>
+
+      <section class="case-section" id="solution" data-nav="Solution">
+        <div class="case-split is-even">
+          <div>
+            <h2>Solution</h2>
+            <h3>Map based kiosk</h3>
+            <p>
+              As per the project brief we were told to create a kiosk for a location of our choosing,
+              so we picked a farmer’s market.
+            </p>
+            <p>
+              I drove research, contributed to wire framing to map out interactions and flow, and
+              co-designed the kiosk with a teammate. My teammate ideated the physical design, and I
+              translated it into measurements and Inkscape files for construction; I assembled it
+              together while she handled painting.
+            </p>
+          </div>
+          <figure class="case-figure">
+            <button type="button" class="case-zoom" data-lightbox aria-label="View larger kiosk">
+              <img src="assets/case-5/kiosk.svg" alt="Green farmer’s market kiosk prototype" />
+            </button>
+          </figure>
+        </div>
+      </section>
+
+      <section class="case-section" id="research" data-nav="Research">
+        <h2>Research</h2>
+        <h3>Testimonials from farmer’s market customers &amp; organizers</h3>
+        <h4>Online Research</h4>
+        <p>
+          We looked at how vendors and consumers use farmers markets today and reviewed existing apps
+          and forums. Users reported six recurring pain points:
+        </p>
+        <ol class="case-numbered">
+          <li>Unwelcoming</li>
+          <li>Overcrowded atmospheres</li>
+          <li>High perceived cost versus grocery stores</li>
+          <li>Parking access</li>
+          <li>Trouble remembering vendor names and locations</li>
+          <li>Confusion around recommendations</li>
+        </ol>
+        <h4>Field Observations</h4>
+        <p>We visited three San Diego markets and La Jolla stood out for its intentional organization.</p>
+        <div class="case-trio">
+          <figure class="case-figure">
+            <button type="button" class="case-zoom" data-lightbox aria-label="View larger Little Italy market photo">
+              <img src="assets/case-5/research-1.svg?v=2" alt="Little Italy farmer’s market" />
+            </button>
+            <figcaption class="case-caption">
+              <strong>Little Italy:</strong> parking issues, no clear vendor organization, and
+              inconsistent signage.
+            </figcaption>
+          </figure>
+          <figure class="case-figure">
+            <button type="button" class="case-zoom" data-lightbox aria-label="View larger Ocean Beach market photo">
+              <img src="assets/case-5/research-2.svg?v=2" alt="Ocean Beach farmer’s market" />
+            </button>
+            <figcaption class="case-caption">
+              <strong>Ocean Beach:</strong> parking issues, crowded, narrow single-lane layout.
+            </figcaption>
+          </figure>
+          <figure class="case-figure">
+            <button type="button" class="case-zoom" data-lightbox aria-label="View larger La Jolla market photo">
+              <img src="assets/case-5/research-3.svg?v=2" alt="La Jolla farmer’s market" />
+            </button>
+            <figcaption class="case-caption">
+              <strong>La Jolla:</strong> one entry point, clear sections by vendor type, more space,
+              and seating.
+            </figcaption>
+          </figure>
+        </div>
+        <h4>Interviews</h4>
+        <p>
+          We interviewed 5 attendees, 1 organizer, and 1 manager across Ocean Beach, La Jolla, and
+          UCSD markets, using storyboards as prompts. 4/5 attendees struggled to navigate the markets;
+          all attendees who'd noticed vendors relocate were frustrated by it. Both organizers wanted
+          a mall-style kiosk with check-ins, maps, and filters. Core needs:
+        </p>
+        <ol class="case-numbered">
+          <li>Real-time vendor availability</li>
+          <li>Location tracking</li>
+          <li>Entry-point info</li>
+          <li>Reminders</li>
+        </ol>
+        <figure class="case-figure case-figure-full case-storyboard">
+          <button type="button" class="case-zoom" data-lightbox aria-label="View larger allergen storyboard">
+            <img src="assets/case-5/storyboard1.svg" alt="Storyboard of an allergen scenario at a farmer’s market" />
+          </button>
+          <figcaption class="case-caption">example storyboard: allergen scenario</figcaption>
+        </figure>
+        <h4>Synthesis</h4>
+        <blockquote class="case-quote">
+          Across all three research methods, the same problem kept surfacing in different forms:
+          farmers markets are disorienting.
+        </blockquote>
+        <p>
+          Whether it was vendors who moved spots between visits, unclear entry points, or no way to
+          know who was even at the market that day, the confusion was what pushed people away, not
+          the markets themselves. People didn't want a fundamentally different experience, but for
+          the one they already loved to be easier to navigate.
+        </p>
+      </section>
+
+      <section class="case-section" id="wireframing" data-nav="Wireframing">
+        <h2>Wireframing</h2>
+        <h3>Testing out interactions via wireframes</h3>
+        <div class="case-split is-even is-middle">
+          <div>
+            <p>
+              I mapped out the user flows and interactions for three core components of our prototype
+              (the search functionality, interactive map, and rental bag feature), developed through a
+              sentence ideation process to ensure a seamless and intuitive user experience. The
+              prototype tested well overall. Users navigated confidently with minimal guidance,
+              responding positively to the clear onboarding, familiar interaction patterns, and
+              market-aligned visual design.
+            </p>
+            <p>Improvements made based on feedback:</p>
+            <ol class="case-numbered">
+              <li>Map: confusing icon and sparse labels → updated icon, added street labels and visual cues</li>
+              <li>Vendor Discovery: lack of visual context → improved vendor visualization and refined categories</li>
+              <li>Filtering: unclear "Enter to apply" behavior → implemented live filtering</li>
+              <li>Readability: dense text caused skimming → simplified content and added clearer instructions</li>
+              <li>Feedback &amp; Flow: insufficient system responses → added feedback cues and redesigned the final step</li>
+            </ol>
+          </div>
+          <figure class="case-figure">
+            <button type="button" class="case-zoom" data-lightbox aria-label="View larger wireframes">
+              <img src="assets/case-5/wireframes.svg" alt="Kiosk wireframes for search, map, and rental bag" />
+            </button>
+          </figure>
+        </div>
+      </section>
+
+      <section class="case-section" id="key-features" data-nav="Key Features">
+        <h2>Key Features</h2>
+        <h3>Map, Search, Rent a Bag</h3>
+        <figure class="case-figure case-figure-full">
+          <button type="button" class="case-zoom" data-lightbox aria-label="View larger Map, Search, and Rent a Bag screens">
+            <img src="assets/case-5/keyfeats.svg" alt="Kiosk screens for map, search, and rent a bag" />
+          </button>
+        </figure>
+        <h4>Map</h4>
+        <p>
+          Our research consistently pointed to navigation as the biggest pain point. Interviewees were
+          frustrated when vendors moved spots, and field observations showed that markets with clearer
+          organization felt noticeably easier to enjoy. We designed the map to help users locate
+          vendors directly and labeled surrounding streets for added directional context, making it
+          easier to navigate the market and find what they were looking for.
+        </p>
+        <h4>Search</h4>
+        <p>
+          Interview and survey data showed users struggled to find specific products or vendors,
+          especially in larger, busier markets. We designed search to let users filter by category,
+          helping them get to what they actually came for without wading through the full market.
+        </p>
+        <h4>Rental Bag</h4>
+        <p>
+          Several interviewees mentioned forgetting to bring a bag as a recurring frustration, often
+          turning a quick trip into an inconvenience. We designed this feature to remove that barrier
+          entirely, giving users a reliable way to carry their groceries even if they showed up
+          unprepared.
+        </p>
+      </section>
+
+      <section class="case-section" id="demo" data-nav="Demo">
+        <div class="case-split is-even">
+          <div>
+            <h2>Demo</h2>
+            <h3>Video walkthrough of digital kiosk experience</h3>
+            <p>
+              <strong>Map:</strong> The user is able to find a specific vendor on the map and text the
+              directions to that location to their own phone.
+            </p>
+            <p>
+              <strong>Search:</strong> The user is able to search for the vendors who sell produce and
+              send the locations to their phone.
+            </p>
+            <p>
+              <strong>Rental Bag:</strong> The user is able to go through the steps of renting and
+              returning the bag. The delays on screen correspond with the Wizard of Oz prototyping
+              done in person. The delay on the payment screen is to account for the user tapping to
+              pay. The delay on the return/rent is to account for the kiosk identifying/ dispensing
+              the bag.
+            </p>
+          </div>
+          <figure class="case-figure">
+            <video
+              class="case-walkthrough"
+              src="assets/case-5/kioskvideo.mov"
+              data-play-in-view
+              muted
+              loop
+              playsinline
+              controls
+              aria-label="Video walkthrough of the digital kiosk experience"
+            ></video>
+          </figure>
+        </div>
+      </section>
+
+      <section class="case-section" id="build" data-nav="From Sketch to Wood">
+        <h2>Build</h2>
+        <h3>From sketch to wood</h3>
+        <figure class="case-figure case-figure-full">
+          <button type="button" class="case-zoom" data-lightbox aria-label="View larger build process photos">
+            <img src="assets/case-5/build.svg" alt="Kiosk process from sketches and foam to the wood build" />
+          </button>
+        </figure>
+      </section>
+
+      <section class="case-section" id="final" data-nav="Final Kiosk">
+        <div class="case-split is-even">
+          <div>
+            <h2>Final Kiosk</h2>
+            <h3>1st place winner</h3>
+            <p>
+              The kiosk design integrates the screen seamlessly into the structure, with a small
+              scalloped edge detail that echoes the rooflines of market vendor stalls. A front-facing
+              acrylic window and retrieval area serve as a "vending machine" for our bag rental
+              system, dispensing bags using the Wizard of Oz method. Customers can return rentals
+              through a slot located behind the screen, and pay using tap-to-pay or cash. The project
+              won first place at the final DSGN 100 showcase.
+            </p>
+          </div>
+          <figure class="case-figure">
+            <button type="button" class="case-zoom" data-lightbox aria-label="View larger finished kiosk">
+              <img src="assets/case-5/kiosk.svg" alt="Finished green farmer’s market kiosk" />
+            </button>
+          </figure>
+        </div>
+      </section>
+    </main>
+
+    <a class="case-next" href="project-6.html">
+      <div class="case-next-thumb is-mint">
+        <img src="assets/case-6/condom-week.png" alt="" />
+      </div>
+      <div class="case-next-copy">
+        <p>Next project</p>
+        <h2>UCSD Health</h2>
+      </div>
+    </a>
+  </div>
+
+  <footer class="case-bottombar">
+    <div class="case-bottombar-connect">
+      <img class="case-bottombar-beetle" src="assets/case-1/beetle-footer.png" alt="" />
+      <p>Let’s connect!</p>
+    </div>
+    <div class="case-bottombar-links">
+      <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="mailto:">Email</a>
+      <button class="to-top" aria-label="Back to top">↑</button>
+    </div>
+  </footer>
+
+  <dialog class="case-lightbox" id="imageLightbox">
+    <img id="lightboxImg" alt="" />
+    <button type="button" id="lightboxClose">close</button>
+  </dialog>
+
+  <script src="case-study.js"></script>
+  <script src="cursor.js"></script>
+</body>
+</html>
