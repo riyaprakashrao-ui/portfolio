@@ -106,6 +106,28 @@
   </footer>
 
   <script>
+    // A shared link should always open on the hello screen. Work is a scroll,
+    // not part of the address, unless someone arrives from a #work link.
+    history.scrollRestoration = "manual";
+
+    function placeAtStart() {
+      if (location.hash === "#work") {
+        document.getElementById("work")?.scrollIntoView();
+        return;
+      }
+      scrollTo(0, 0);
+    }
+    placeAtStart();
+    addEventListener("pageshow", placeAtStart);
+
+    document.querySelectorAll('a[href="#work"]').forEach((link) => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        document.getElementById("work")?.scrollIntoView({ behavior: "smooth" });
+      });
+    });
+  </script>
+  <script>
     const SPACING = 70;     // px of mouse travel between beetles
     const SIZE = 64;        // beetle width in px
     const LIFETIME = 2500;  // ms before a beetle fully fades
