@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href="beetle-2.png" />
   <title>Riya’s Portfolio</title>
-  <link rel="stylesheet" href="styles.css?v=frame1" />
+  <link rel="stylesheet" href="styles.css?v=stack1" />
 </head>
 <body>
   <nav class="nav">
@@ -201,12 +201,49 @@
       last = { x, y };
     }
 
+    function dropBeetle(x, y) {
+      if (isKeepClear(x, y)) return;
+      beetles.push({
+        x,
+        y,
+        angle: Math.random() * Math.PI * 2,
+        img: images[count++ % images.length],
+        born: performance.now(),
+      });
+    }
+
+    // A mouse leaves a trail. A finger tap leaves one beetle, so scrolling the page doesn't.
     hero.addEventListener("pointermove", (e) => {
+      if (e.pointerType !== "mouse" && e.pointerType !== "pen") return;
       const rect = hero.getBoundingClientRect();
       onMove(e.clientX - rect.left, e.clientY - rect.top);
     });
     hero.addEventListener("pointerleave", () => (last = null));
-    addEventListener("scroll", () => (last = null), { passive: true });
+
+    let tap = null;
+    hero.addEventListener("pointerdown", (e) => {
+      if (e.pointerType === "mouse" || e.pointerType === "pen") return;
+      const rect = hero.getBoundingClientRect();
+      tap = {
+        id: e.pointerId,
+        x: e.clientX,
+        y: e.clientY,
+        hx: e.clientX - rect.left,
+        hy: e.clientY - rect.top,
+      };
+    });
+    hero.addEventListener("pointerup", (e) => {
+      if (!tap || e.pointerId !== tap.id) return;
+      const moved = Math.hypot(e.clientX - tap.x, e.clientY - tap.y);
+      const point = tap;
+      tap = null;
+      if (moved < 14) dropBeetle(point.hx, point.hy);
+    });
+    hero.addEventListener("pointercancel", () => (tap = null));
+    addEventListener("scroll", () => {
+      last = null;
+      tap = null;
+    }, { passive: true });
 
     function draw(now) {
       ctx.clearRect(0, 0, hero.clientWidth, hero.clientHeight);

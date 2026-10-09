@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href="beetle-2.png" />
   <title>Kiosk</title>
-  <link rel="stylesheet" href="styles.css?v=frame1" />
+  <link rel="stylesheet" href="styles.css?v=stack1" />
 </head>
 <body class="case">
   <aside class="case-sidebar">
@@ -66,28 +66,24 @@
         </p>
       </section>
 
-      <section class="case-section" id="solution" data-nav="Solution">
-        <div class="case-split is-even">
-          <div>
-            <h2>Solution</h2>
-            <h3>Map based kiosk</h3>
-            <p>
-              As per the project brief we were told to create a kiosk for a location of our choosing,
-              so we picked a farmer’s market.
-            </p>
-            <p>
-              I drove research, contributed to wire framing to map out interactions and flow, and
-              co-designed the kiosk with a teammate. My teammate ideated the physical design, and I
-              translated it into measurements and Inkscape files for construction; I assembled it
-              together while she handled painting.
-            </p>
-          </div>
-          <figure class="case-figure">
-            <button type="button" class="case-zoom" data-lightbox aria-label="View larger kiosk">
-              <img src="assets/case-5/kiosk.svg" alt="Green farmer’s market kiosk prototype" />
-            </button>
-          </figure>
-        </div>
+      <section class="case-section case-stack" id="solution" data-nav="Solution">
+        <h2>Solution</h2>
+        <h3>Map based kiosk</h3>
+        <figure class="case-figure">
+          <button type="button" class="case-zoom" data-lightbox aria-label="View larger kiosk">
+            <img src="assets/case-5/kiosk.svg" alt="Green farmer’s market kiosk prototype" />
+          </button>
+        </figure>
+        <p>
+          As per the project brief we were told to create a kiosk for a location of our choosing,
+          so we picked a farmer’s market.
+        </p>
+        <p>
+          I drove research, contributed to wire framing to map out interactions and flow, and
+          co-designed the kiosk with a teammate. My teammate ideated the physical design, and I
+          translated it into measurements and Inkscape files for construction; I assembled it
+          together while she handled painting.
+        </p>
       </section>
 
       <section class="case-section" id="research" data-nav="Research">
@@ -168,34 +164,30 @@
         </p>
       </section>
 
-      <section class="case-section" id="wireframing" data-nav="Wireframing">
+      <section class="case-section case-stack" id="wireframing" data-nav="Wireframing">
         <h2>Wireframing</h2>
         <h3>Testing out interactions via wireframes</h3>
-        <div class="case-split is-even is-middle">
-          <div>
-            <p>
-              I mapped out the user flows and interactions for three core components of our prototype
-              (the search functionality, interactive map, and rental bag feature), developed through a
-              sentence ideation process to ensure a seamless and intuitive user experience. The
-              prototype tested well overall. Users navigated confidently with minimal guidance,
-              responding positively to the clear onboarding, familiar interaction patterns, and
-              market-aligned visual design.
-            </p>
-            <p>Improvements made based on feedback:</p>
-            <ol class="case-numbered">
-              <li>Map: confusing icon and sparse labels → updated icon, added street labels and visual cues</li>
-              <li>Vendor Discovery: lack of visual context → improved vendor visualization and refined categories</li>
-              <li>Filtering: unclear "Enter to apply" behavior → implemented live filtering</li>
-              <li>Readability: dense text caused skimming → simplified content and added clearer instructions</li>
-              <li>Feedback &amp; Flow: insufficient system responses → added feedback cues and redesigned the final step</li>
-            </ol>
-          </div>
-          <figure class="case-figure">
-            <button type="button" class="case-zoom" data-lightbox aria-label="View larger wireframes">
-              <img src="assets/case-5/wireframes.svg" alt="Kiosk wireframes for search, map, and rental bag" />
-            </button>
-          </figure>
-        </div>
+        <figure class="case-figure">
+          <button type="button" class="case-zoom" data-lightbox aria-label="View larger wireframes">
+            <img src="assets/case-5/wireframes.svg" alt="Kiosk wireframes for search, map, and rental bag" />
+          </button>
+        </figure>
+        <p>
+          I mapped out the user flows and interactions for three core components of our prototype
+          (the search functionality, interactive map, and rental bag feature), developed through a
+          sentence ideation process to ensure a seamless and intuitive user experience. The
+          prototype tested well overall. Users navigated confidently with minimal guidance,
+          responding positively to the clear onboarding, familiar interaction patterns, and
+          market-aligned visual design.
+        </p>
+        <p>Improvements made based on feedback:</p>
+        <ol class="case-numbered">
+          <li>Map: confusing icon and sparse labels → updated icon, added street labels and visual cues</li>
+          <li>Vendor Discovery: lack of visual context → improved vendor visualization and refined categories</li>
+          <li>Filtering: unclear "Enter to apply" behavior → implemented live filtering</li>
+          <li>Readability: dense text caused skimming → simplified content and added clearer instructions</li>
+          <li>Feedback &amp; Flow: insufficient system responses → added feedback cues and redesigned the final step</li>
+        </ol>
       </section>
 
       <section class="case-section" id="key-features" data-nav="Key Features">
@@ -229,40 +221,36 @@
         </p>
       </section>
 
-      <section class="case-section" id="demo" data-nav="Demo">
-        <div class="case-split is-even">
-          <div>
-            <h2>Demo</h2>
-            <h3>Video walkthrough of digital kiosk experience</h3>
-            <p>
-              <strong>Map:</strong> The user is able to find a specific vendor on the map and text the
-              directions to that location to their own phone.
-            </p>
-            <p>
-              <strong>Search:</strong> The user is able to search for the vendors who sell produce and
-              send the locations to their phone.
-            </p>
-            <p>
-              <strong>Rental Bag:</strong> The user is able to go through the steps of renting and
-              returning the bag. The delays on screen correspond with the Wizard of Oz prototyping
-              done in person. The delay on the payment screen is to account for the user tapping to
-              pay. The delay on the return/rent is to account for the kiosk identifying/ dispensing
-              the bag.
-            </p>
-          </div>
-          <figure class="case-figure">
-            <video
-              class="case-walkthrough"
-              src="assets/case-5/kioskvideo.mov"
-              data-play-in-view
-              muted
-              loop
-              playsinline
-              controls
-              aria-label="Video walkthrough of the digital kiosk experience"
-            ></video>
-          </figure>
-        </div>
+      <section class="case-section case-stack" id="demo" data-nav="Demo">
+        <h2>Demo</h2>
+        <h3>Video walkthrough of digital kiosk experience</h3>
+        <figure class="case-figure">
+          <video
+            class="case-walkthrough"
+            src="assets/case-5/kioskvideo.mov"
+            data-play-in-view
+            muted
+            loop
+            playsinline
+            controls
+            aria-label="Video walkthrough of the digital kiosk experience"
+          ></video>
+        </figure>
+        <p>
+          <strong>Map:</strong> The user is able to find a specific vendor on the map and text the
+          directions to that location to their own phone.
+        </p>
+        <p>
+          <strong>Search:</strong> The user is able to search for the vendors who sell produce and
+          send the locations to their phone.
+        </p>
+        <p>
+          <strong>Rental Bag:</strong> The user is able to go through the steps of renting and
+          returning the bag. The delays on screen correspond with the Wizard of Oz prototyping
+          done in person. The delay on the payment screen is to account for the user tapping to
+          pay. The delay on the return/rent is to account for the kiosk identifying/ dispensing
+          the bag.
+        </p>
       </section>
 
       <section class="case-section" id="build" data-nav="From Sketch to Wood">
@@ -275,26 +263,22 @@
         </figure>
       </section>
 
-      <section class="case-section" id="final" data-nav="Final Kiosk">
-        <div class="case-split is-even">
-          <div>
-            <h2>Final Kiosk</h2>
-            <h3>1st place winner</h3>
-            <p>
-              The kiosk design integrates the screen seamlessly into the structure, with a small
-              scalloped edge detail that echoes the rooflines of market vendor stalls. A front-facing
-              acrylic window and retrieval area serve as a "vending machine" for our bag rental
-              system, dispensing bags using the Wizard of Oz method. Customers can return rentals
-              through a slot located behind the screen, and pay using tap-to-pay or cash. The project
-              won first place at the final DSGN 100 showcase.
-            </p>
-          </div>
-          <figure class="case-figure">
-            <button type="button" class="case-zoom" data-lightbox aria-label="View larger finished kiosk">
-              <img src="assets/case-5/kiosk.svg" alt="Finished green farmer’s market kiosk" />
-            </button>
-          </figure>
-        </div>
+      <section class="case-section case-stack" id="final" data-nav="Final Kiosk">
+        <h2>Final Kiosk</h2>
+        <h3>1st place winner</h3>
+        <figure class="case-figure">
+          <button type="button" class="case-zoom" data-lightbox aria-label="View larger finished kiosk">
+            <img src="assets/case-5/kiosk.svg" alt="Finished green farmer’s market kiosk" />
+          </button>
+        </figure>
+        <p>
+          The kiosk design integrates the screen seamlessly into the structure, with a small
+          scalloped edge detail that echoes the rooflines of market vendor stalls. A front-facing
+          acrylic window and retrieval area serve as a "vending machine" for our bag rental
+          system, dispensing bags using the Wizard of Oz method. Customers can return rentals
+          through a slot located behind the screen, and pay using tap-to-pay or cash. The project
+          won first place at the final DSGN 100 showcase.
+        </p>
       </section>
     </main>
 
