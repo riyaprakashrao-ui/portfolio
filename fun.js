@@ -997,7 +997,7 @@ const photoSaveNote = document.getElementById("photoSaveNote");
 
 photoSave.addEventListener("click", async () => {
   const file = photoBlob && new File([photoBlob], "my-beetle-friend.jpg", { type: "image/jpeg" });
-  if (file && navigator.canShare?.({ files: [file] })) {
+  if (touchUI && file && navigator.canShare?.({ files: [file] })) {
     try {
       await navigator.share({ files: [file], title: "My beetle friend" });
       return;
