@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href="beetle-2.png" />
   <title>Riya Rao</title>
-  <link rel="stylesheet" href="styles.css?v=take1" />
+  <link rel="stylesheet" href="styles.css?v=fast1" />
 </head>
 <body>
   <nav class="nav">
@@ -27,7 +27,7 @@
     <div class="grid">
       <a class="card" href="work/capitalone">
         <div class="card-image is-mint">
-          <img src="assets/case-1/capital-one.gif" alt="" />
+          <img src="assets/case-1/capital-one.gif" alt="" loading="lazy" />
         </div>
         <div class="card-body">
           <h3>Capital One</h3>
@@ -38,7 +38,7 @@
 
       <a class="card" href="work/junior-firefighter">
         <div class="card-image is-yellow">
-          <video src="assets/case-4/jrfirefighter.mov" autoplay muted loop playsinline></video>
+          <video data-src="assets/case-4/jrfirefighter.mov" preload="none" muted loop playsinline></video>
         </div>
         <div class="card-body">
           <h3>Junior Firefighter</h3>
@@ -49,7 +49,7 @@
 
       <a class="card" href="work/fireflies">
         <div class="card-image is-olive is-poster">
-          <img class="card-poster-sheet" src="assets/case-3/poster.png" alt="" />
+          <img class="card-poster-sheet" src="assets/case-3/poster.png" alt="" loading="lazy" />
         </div>
         <div class="card-body">
           <h3>Fireflies</h3>
@@ -60,7 +60,7 @@
 
       <a class="card" href="work/colearn">
         <div class="card-image is-red">
-          <img src="assets/case-4/phone.png?v=4" alt="" />
+          <img src="assets/case-4/phone.png?v=4" alt="" loading="lazy" />
         </div>
         <div class="card-body">
           <h3>CoLearn</h3>
@@ -71,7 +71,7 @@
 
       <a class="card" href="work/kiosk">
         <div class="card-image is-lavender">
-          <img src="assets/case-5/kiosk.svg" alt="" />
+          <img src="assets/case-5/kiosk.svg" alt="" loading="lazy" />
         </div>
         <div class="card-body">
           <h3>Kiosk</h3>
@@ -82,7 +82,7 @@
 
       <a class="card" href="work/ucsd-health">
         <div class="card-image is-mint is-poster">
-          <img class="card-poster-sheet" src="assets/case-6/condom-week.png" alt="" />
+          <img class="card-poster-sheet" src="assets/case-6/condom-week.png" alt="" loading="lazy" />
         </div>
         <div class="card-body">
           <h3>UCSD Health</h3>
@@ -268,6 +268,6 @@
     }
     requestAnimationFrame(draw);
   </script>
-  <script src="cursor.js"></script>
+  <script src="cursor.js?v=fast1"></script>
 </body>
 </html>

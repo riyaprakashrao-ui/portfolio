@@ -1265,6 +1265,10 @@ h6 {
   height: auto;
 }
 
+img[data-src]:not([src]) {
+  background: rgba(10, 31, 214, 0.04);
+}
+
 .case-figure-wide {
   margin: 0.5rem 0 2rem;
 }

@@ -90,13 +90,21 @@ if (lightbox && lightboxImg) {
   });
 }
 
-document.querySelectorAll("video[data-play-in-view]").forEach((video) => {
+document.querySelectorAll("video[data-src]").forEach((video) => {
+  const start = () => {
+    if (!video.getAttribute("src")) video.src = video.dataset.src;
+    video.play().catch(() => {});
+  };
+  if (!("IntersectionObserver" in window)) {
+    start();
+    return;
+  }
   const io = new IntersectionObserver(
     ([entry]) => {
-      if (entry.isIntersecting) video.play().catch(() => {});
+      if (entry.isIntersecting) start();
       else video.pause();
     },
-    { threshold: 0.45 }
+    { rootMargin: "0px", threshold: 0.35 }
   );
   io.observe(video);
 });

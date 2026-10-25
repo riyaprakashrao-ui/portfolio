@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href="../beetle-2.png" />
   <title>CoLearn</title>
-  <link rel="stylesheet" href="../styles.css?v=take1" />
+  <link rel="stylesheet" href="../styles.css?v=fast1" />
 </head>
 <body class="case">
   <aside class="case-sidebar">
@@ -76,8 +76,8 @@
         <h3>CoLearn: A platform to connect educators</h3>
         <figure class="case-figure case-phone-video">
           <video
-            src="../assets/case-4/solution-phone.mov"
-            autoplay
+            data-src="../assets/case-4/solution-phone.mov"
+            preload="none"
             muted
             loop
             playsinline
@@ -132,6 +132,7 @@
           <button type="button" class="case-zoom" data-lightbox aria-label="View larger relationship map">
             <img
               src="../assets/case-4/relationships.svg"
+              loading="lazy"
               alt="Relationship map of educator resources and student learning themes from research synthesis"
             />
           </button>
@@ -160,6 +161,7 @@
           <button type="button" class="case-zoom" data-lightbox aria-label="View larger CoLearn feature screens">
             <img
               src="../assets/case-4/features.svg"
+              loading="lazy"
               alt="CoLearn screens for onboarding, chat, interests, connections, and dashboard"
             />
           </button>
@@ -202,7 +204,7 @@
 
     <a class="case-next" href="kiosk">
       <div class="case-next-thumb is-lavender">
-        <img src="../assets/case-5/kiosk.svg" alt="" />
+        <img src="../assets/case-5/kiosk.svg" alt="" loading="lazy" />
       </div>
       <div class="case-next-copy">
         <p>Next project</p>
@@ -228,7 +230,7 @@
     <button type="button" id="lightboxClose">close</button>
   </dialog>
 
-  <script src="../case-study.js"></script>
-  <script src="../cursor.js"></script>
+  <script src="../case-study.js?v=fast1"></script>
+  <script src="../cursor.js?v=fast1"></script>
 </body>
 </html>
