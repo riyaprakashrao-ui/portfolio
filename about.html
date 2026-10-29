@@ -232,7 +232,6 @@
       document.querySelectorAll(".about-trigger").forEach((button) => {
         button.setAttribute("aria-expanded", button.getAttribute("aria-controls") === id ? "true" : "false");
       });
-      photo.scrollIntoView({ block: "start", inline: "nearest" });
       if (open || reduceMotion) {
         photo.classList.add("is-panel-open");
         return;
