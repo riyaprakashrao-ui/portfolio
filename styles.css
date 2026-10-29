@@ -468,12 +468,8 @@ h6 {
   gap: 1rem;
   padding: 1.25rem;
   background: var(--white);
-  transform: translateX(-101%);
-  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.crossword.is-from-right {
   transform: translateX(101%);
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .about-photo.is-crossword-open .crossword {
