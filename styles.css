@@ -449,9 +449,40 @@ h6 {
   box-shadow: inset 0 -2px 0 var(--blue);
 }
 
-.about-trigger:hover,
-.about-trigger:focus-visible {
+.about-trigger.is-eating {
+  background: var(--yellow);
+}
+
+.about-trigger.is-swimming {
   background: var(--mint);
+}
+
+.about-trigger.is-crossword {
+  background: var(--lavender);
+}
+
+.about-trigger.is-wishlist {
+  background: #f7d0d4;
+}
+
+.about-trigger.is-eating:hover,
+.about-trigger.is-eating:focus-visible {
+  background: var(--mint);
+}
+
+.about-trigger.is-swimming:hover,
+.about-trigger.is-swimming:focus-visible {
+  background: var(--yellow);
+}
+
+.about-trigger.is-crossword:hover,
+.about-trigger.is-crossword:focus-visible {
+  background: #f7d0d4;
+}
+
+.about-trigger.is-wishlist:hover,
+.about-trigger.is-wishlist:focus-visible {
+  background: var(--lavender);
 }
 
 .about-trigger:focus-visible {
