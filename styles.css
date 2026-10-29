@@ -425,15 +425,16 @@ h6 {
   position: relative;
   margin: 0;
   overflow: hidden;
+  scroll-margin-top: calc(var(--nav-height) + 0.75rem);
 }
 
-.about-photo img {
+.about-photo > img {
   display: block;
   width: 100%;
   height: auto;
 }
 
-.crossword-link {
+.about-trigger {
   display: inline;
   margin: 0;
   padding: 0 0.15em;
@@ -448,17 +449,17 @@ h6 {
   box-shadow: inset 0 -2px 0 var(--blue);
 }
 
-.crossword-link:hover,
-.crossword-link:focus-visible {
+.about-trigger:hover,
+.about-trigger:focus-visible {
   background: var(--mint);
 }
 
-.crossword-link:focus-visible {
+.about-trigger:focus-visible {
   outline: 2px solid var(--blue);
   outline-offset: 2px;
 }
 
-.crossword {
+.about-panel {
   position: absolute;
   inset: 0;
   z-index: 1;
@@ -472,8 +473,117 @@ h6 {
   transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.about-photo.is-crossword-open .crossword {
+.about-photo.is-panel-open .about-panel {
   transform: translateX(0);
+}
+
+.about-panel.is-list {
+  justify-content: flex-start;
+  gap: 0.65rem;
+  padding: 0.85rem 0.85rem 0.75rem;
+  overflow: auto;
+}
+
+.panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.spot-tabs {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.15rem;
+}
+
+.spot-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.18rem;
+  min-width: 0;
+  padding: 0.28rem 0.1rem 0.34rem;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--blue);
+  font: inherit;
+  font-size: 0.58rem;
+  font-weight: 700;
+  line-height: 1.05;
+  text-align: center;
+  cursor: pointer;
+}
+
+.spot-tab svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+.spot-tab[aria-selected="true"] {
+  background: var(--yellow);
+}
+
+.spot-tab:hover,
+.spot-tab:focus-visible {
+  background: var(--mint);
+}
+
+.spot-tab:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 1px;
+}
+
+.spot-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.55rem 0.4rem;
+}
+
+.spot {
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
+  min-width: 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+.spot-photo {
+  display: block;
+  aspect-ratio: 1;
+  border: 1.5px solid var(--blue);
+  border-radius: 8px;
+  background: rgba(10, 31, 214, 0.04);
+  overflow: hidden;
+}
+
+.spot-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.spot-caption {
+  min-height: 2.2em;
+  font-size: 0.68rem;
+  font-weight: 600;
+  line-height: 1.15;
+  text-align: center;
+}
+
+a.spot:hover .spot-photo,
+a.spot:focus-visible .spot-photo {
+  background: var(--yellow);
+}
+
+a.spot:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
 }
 
 .crossword-label {
@@ -517,7 +627,7 @@ h6 {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .crossword {
+  .about-panel {
     transition: none;
   }
 }

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href="beetle-2.png" />
   <title>About</title>
-  <link rel="stylesheet" href="styles.css?v=cross4" />
+  <link rel="stylesheet" href="styles.css?v=lists2" />
 </head>
 <body>
   <nav class="nav">
@@ -26,11 +26,15 @@
           University of Michigan. I completed a BS in Cognitive Science at UCSD, which offers me a
           greater understanding of how people interact with the objects around them and the reasoning
           behind making a particular decision. My work spans fintech, children’s learning, nonprofits,
-          and sustainability. When I’m not working, I’m cooking, eating out (@imriyallyhungry on Beli),
-          swimming, lifting weights, filling out a
-          <button type="button" class="crossword-link" id="crosswordOpen" aria-expanded="false" aria-controls="crossword">crossword</button>,
+          and sustainability. When I’m not working, I’m cooking,
+          <button type="button" class="about-trigger" data-panel="eating" aria-expanded="false" aria-controls="panel-eating">eating out</button>
+          (@imriyallyhungry on Beli),
+          <button type="button" class="about-trigger" data-panel="beaches" aria-expanded="false" aria-controls="panel-beaches">swimming</button>,
+          lifting weights, filling out a
+          <button type="button" class="about-trigger" data-panel="crossword" aria-expanded="false" aria-controls="panel-crossword">crossword</button>,
           or spending excessive time (and money)
-          on The Real Real.
+          on
+          <button type="button" class="about-trigger" data-panel="wishlist" aria-expanded="false" aria-controls="panel-wishlist">The Real Real</button>.
         </p>
       </section>
       <section class="about-row">
@@ -51,7 +55,49 @@
     </div>
     <figure class="about-photo">
       <img src="headshot.svg" alt="Riya in a UC San Diego graduation sash, with illustrated beetles" />
-      <div class="crossword" id="crossword" hidden>
+      <div class="about-panel is-list" id="panel-eating" hidden>
+        <div class="panel-head">
+          <p class="crossword-label">Eating out</p>
+          <button type="button" class="crossword-close" data-close>close</button>
+        </div>
+        <div class="spot-tabs" role="tablist" aria-label="Eating out categories">
+          <button type="button" class="spot-tab" role="tab" id="tab-bakeries" aria-selected="true" aria-controls="grid-bakeries" data-tab="bakeries">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 15c0-4 3.2-8 7-8s7 4 7 8v2H5v-2z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M9 11c.8.8 1.6.8 3 0s2.2-.8 3 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            bakeries
+          </button>
+          <button type="button" class="spot-tab" role="tab" id="tab-restaurants" aria-selected="false" aria-controls="grid-restaurants" data-tab="restaurants">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3v6a2 2 0 0 1-2 2H5M8 3v18M6 3v5M16 3c1.5 2 2 3.5 2 6v12M16 3v6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            restaurants
+          </button>
+          <button type="button" class="spot-tab" role="tab" id="tab-coffee" aria-selected="false" aria-controls="grid-coffee" data-tab="coffee">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9h10v5a4 4 0 0 1-4 4h-2a4 4 0 0 1-4-4V9z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M16 11h2.2a2.2 2.2 0 0 1 0 4.4H16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            <span>coffee<br />&amp; tea</span>
+          </button>
+          <button type="button" class="spot-tab" role="tab" id="tab-dessert" aria-selected="false" aria-controls="grid-dessert" data-tab="dessert">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 14h14v5H5z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5 14c1.2-2 2.4-2 3.6 0s2.4 2 3.6 0 2.4-2 3.6 0 2.4 2 3.2 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            dessert
+          </button>
+          <button type="button" class="spot-tab" role="tab" id="tab-drinks" aria-selected="false" aria-controls="grid-drinks" data-tab="drinks">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4h8l-1.2 7.2A3.6 3.6 0 0 1 11.3 14h1.4a3.6 3.6 0 0 1-3.5-2.8L8 4zM12 14v5M9 20h6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></svg>
+            drinks
+          </button>
+        </div>
+        <div class="spot-grid" id="grid-bakeries" role="tabpanel" aria-labelledby="tab-bakeries" data-list="bakeries"></div>
+        <div class="spot-grid" id="grid-restaurants" role="tabpanel" aria-labelledby="tab-restaurants" data-list="restaurants" hidden></div>
+        <div class="spot-grid" id="grid-coffee" role="tabpanel" aria-labelledby="tab-coffee" data-list="coffee" hidden></div>
+        <div class="spot-grid" id="grid-dessert" role="tabpanel" aria-labelledby="tab-dessert" data-list="dessert" hidden></div>
+        <div class="spot-grid" id="grid-drinks" role="tabpanel" aria-labelledby="tab-drinks" data-list="drinks" hidden></div>
+      </div>
+
+      <div class="about-panel is-list" id="panel-beaches" hidden>
+        <div class="panel-head">
+          <p class="crossword-label">Beaches</p>
+          <button type="button" class="crossword-close" data-close>close</button>
+        </div>
+        <div class="spot-grid" data-list="beaches"></div>
+      </div>
+
+      <div class="about-panel crossword" id="panel-crossword" hidden>
         <p class="crossword-label">Crossword</p>
         <div class="crossword-grid" aria-hidden="true">
           <span></span><span></span><span></span><span></span><span></span>
@@ -60,7 +106,15 @@
           <span></span><span></span><span></span><span></span><span></span>
           <span></span><span></span><span></span><span></span><span></span>
         </div>
-        <button type="button" class="crossword-close" id="crosswordClose">close</button>
+        <button type="button" class="crossword-close" data-close>close</button>
+      </div>
+
+      <div class="about-panel is-list" id="panel-wishlist" hidden>
+        <div class="panel-head">
+          <p class="crossword-label">Wishlist</p>
+          <button type="button" class="crossword-close" data-close>close</button>
+        </div>
+        <div class="spot-grid" data-list="wishlist"></div>
       </div>
     </figure>
   </main>
@@ -79,42 +133,114 @@
 
   <script>
     const photo = document.querySelector(".about-photo");
-    const crossword = document.getElementById("crossword");
-    const openCrossword = document.getElementById("crosswordOpen");
-    const closeCrossword = document.getElementById("crosswordClose");
     const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let current = null;
 
-    function showCrossword() {
-      crossword.hidden = false;
-      openCrossword.setAttribute("aria-expanded", "true");
-      if (reduceMotion) {
-        photo.classList.add("is-crossword-open");
-        return;
-      }
-      crossword.getBoundingClientRect();
-      photo.classList.add("is-crossword-open");
+    // Six spots in each list. Add name, image, and href when they’re ready.
+    // Eating out and beaches use a Google Maps link. Wishlist uses the item link.
+    const spots = {
+      bakeries: [{}, {}, {}, {}, {}, {}],
+      restaurants: [{}, {}, {}, {}, {}, {}],
+      coffee: [{}, {}, {}, {}, {}, {}],
+      dessert: [{}, {}, {}, {}, {}, {}],
+      drinks: [{}, {}, {}, {}, {}, {}],
+      beaches: [{}, {}, {}, {}, {}, {}],
+      wishlist: [{}, {}, {}, {}, {}, {}],
+    };
+
+    function fillGrid(grid, items) {
+      grid.replaceChildren(
+        ...items.map((item) => {
+          const card = item.href ? document.createElement("a") : document.createElement("div");
+          card.className = "spot";
+          if (item.href) {
+            card.href = item.href;
+            card.target = "_blank";
+            card.rel = "noopener noreferrer";
+          }
+          const frame = document.createElement("span");
+          frame.className = "spot-photo";
+          if (item.image) {
+            const img = document.createElement("img");
+            img.src = item.image;
+            img.alt = "";
+            frame.append(img);
+          }
+          const caption = document.createElement("span");
+          caption.className = "spot-caption";
+          caption.textContent = item.name || "";
+          card.append(frame, caption);
+          return card;
+        })
+      );
     }
 
-    function hideCrossword() {
-      photo.classList.remove("is-crossword-open");
-      openCrossword.setAttribute("aria-expanded", "false");
-      if (reduceMotion) {
-        crossword.hidden = true;
+    document.querySelectorAll(".spot-grid").forEach((grid) => {
+      fillGrid(grid, spots[grid.dataset.list] || []);
+    });
+
+    document.querySelectorAll(".spot-tab").forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const panel = tab.closest(".about-panel");
+        panel.querySelectorAll(".spot-tab").forEach((other) => {
+          other.setAttribute("aria-selected", other === tab ? "true" : "false");
+        });
+        panel.querySelectorAll("[data-list]").forEach((grid) => {
+          grid.hidden = grid.dataset.list !== tab.dataset.tab;
+        });
+      });
+    });
+
+    function showPanel(id) {
+      const next = document.getElementById(id);
+      if (!next) return;
+      const open = photo.classList.contains("is-panel-open") && current && !current.hidden;
+      if (next === current && open) return;
+      if (current && current !== next) current.hidden = true;
+      next.hidden = false;
+      current = next;
+      document.querySelectorAll(".about-trigger").forEach((button) => {
+        button.setAttribute("aria-expanded", button.getAttribute("aria-controls") === id ? "true" : "false");
+      });
+      photo.scrollIntoView({ block: "start", inline: "nearest" });
+      if (open || reduceMotion) {
+        photo.classList.add("is-panel-open");
         return;
       }
-      crossword.addEventListener(
+      next.getBoundingClientRect();
+      photo.classList.add("is-panel-open");
+    }
+
+    function hidePanel() {
+      if (!current) return;
+      const closing = current;
+      photo.classList.remove("is-panel-open");
+      document.querySelectorAll(".about-trigger").forEach((button) => {
+        button.setAttribute("aria-expanded", "false");
+      });
+      if (reduceMotion) {
+        closing.hidden = true;
+        current = null;
+        return;
+      }
+      closing.addEventListener(
         "transitionend",
         () => {
-          crossword.hidden = true;
+          closing.hidden = true;
+          if (current === closing) current = null;
         },
         { once: true }
       );
     }
 
-    openCrossword.addEventListener("click", showCrossword);
-    closeCrossword.addEventListener("click", hideCrossword);
+    document.querySelectorAll(".about-trigger").forEach((button) => {
+      button.addEventListener("click", () => showPanel(button.getAttribute("aria-controls")));
+    });
+    document.querySelectorAll("[data-close]").forEach((button) => {
+      button.addEventListener("click", hidePanel);
+    });
     document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && !crossword.hidden) hideCrossword();
+      if (event.key === "Escape" && current && !current.hidden) hidePanel();
     });
   </script>
   <script src="cursor.js?v=fast1"></script>
