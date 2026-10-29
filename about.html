@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href="beetle-2.png" />
   <title>About</title>
-  <link rel="stylesheet" href="styles.css?v=fast1" />
+  <link rel="stylesheet" href="styles.css?v=cross1" />
 </head>
 <body>
   <nav class="nav">
@@ -27,7 +27,11 @@
           greater understanding of how people interact with the objects around them and the reasoning
           behind making a particular decision. My work spans fintech, children’s learning, nonprofits,
           and sustainability. When I’m not working, I’m cooking, eating out (@imriyallyhungry on Beli),
-          swimming, lifting weights, filling out a crossword, or spending excessive time (and money)
+          swimming, lifting weights, filling out a
+          <button type="button" class="crossword-link" id="crosswordOpen" aria-expanded="false" aria-controls="crossword">
+            <span>c</span><span>r</span><span>o</span><span>s</span><span>s</span><span>w</span><span>o</span><span>r</span><span>d</span>
+          </button>,
+          or spending excessive time (and money)
           on The Real Real.
         </p>
       </section>
@@ -49,6 +53,17 @@
     </div>
     <figure class="about-photo">
       <img src="headshot.svg" alt="Riya in a UC San Diego graduation sash, with illustrated beetles" />
+      <div class="crossword" id="crossword" hidden>
+        <p class="crossword-label">Crossword</p>
+        <div class="crossword-grid" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <button type="button" class="crossword-close" id="crosswordClose">close</button>
+      </div>
     </figure>
   </main>
 
@@ -64,6 +79,45 @@
     </div>
   </footer>
 
+  <script>
+    const photo = document.querySelector(".about-photo");
+    const crossword = document.getElementById("crossword");
+    const openCrossword = document.getElementById("crosswordOpen");
+    const closeCrossword = document.getElementById("crosswordClose");
+    const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    function showCrossword() {
+      crossword.hidden = false;
+      openCrossword.setAttribute("aria-expanded", "true");
+      if (reduceMotion) {
+        photo.classList.add("is-crossword-open");
+        return;
+      }
+      requestAnimationFrame(() => photo.classList.add("is-crossword-open"));
+    }
+
+    function hideCrossword() {
+      photo.classList.remove("is-crossword-open");
+      openCrossword.setAttribute("aria-expanded", "false");
+      if (reduceMotion) {
+        crossword.hidden = true;
+        return;
+      }
+      crossword.addEventListener(
+        "transitionend",
+        () => {
+          crossword.hidden = true;
+        },
+        { once: true }
+      );
+    }
+
+    openCrossword.addEventListener("click", showCrossword);
+    closeCrossword.addEventListener("click", hideCrossword);
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !crossword.hidden) hideCrossword();
+    });
+  </script>
   <script src="cursor.js?v=fast1"></script>
 </body>
 </html>
