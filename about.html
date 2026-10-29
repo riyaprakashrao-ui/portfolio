@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href="beetle-2.png" />
   <title>About</title>
-  <link rel="stylesheet" href="styles.css?v=lists11" />
+  <link rel="stylesheet" href="styles.css?v=lists12" />
 </head>
 <body>
   <nav class="nav">
@@ -93,7 +93,10 @@
           <p class="crossword-label">Beaches</p>
           <button type="button" class="crossword-close" data-close>close</button>
         </div>
-        <div class="spot-grid" data-list="beaches"></div>
+        <figure class="beach">
+          <div class="beach-photo"></div>
+          <figcaption class="beach-caption"></figcaption>
+        </figure>
       </div>
 
       <div class="about-panel crossword" id="panel-crossword" hidden>
@@ -135,7 +138,7 @@
     const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
     let current = null;
 
-    // Eating out and beaches open in Google Maps. Wishlist uses the item link.
+    // Eating out opens in Google Maps. Wishlist uses the item link.
     function place(dish, spot, city, mapsCity) {
       return {
         name: `${dish} @ ${spot}, ${city}`,
@@ -174,7 +177,6 @@
         place("Salted pistachio latte", "Finjan", "SD", "San Diego"),
         place("Tiramisu latte", "Philz", "SD", "San Diego"),
       ],
-      beaches: [{}, {}, {}, {}],
       wishlist: [{}, {}, {}, {}],
     };
 

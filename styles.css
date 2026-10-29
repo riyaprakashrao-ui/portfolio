@@ -598,6 +598,43 @@ a.spot:focus-visible {
   outline-offset: 2px;
 }
 
+.beach {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  margin: 0;
+  gap: 0.55rem;
+}
+
+.beach-photo {
+  flex: 1;
+  min-height: 0;
+  border: 1.5px solid var(--blue);
+  border-radius: 8px;
+  background: rgba(10, 31, 214, 0.04);
+  overflow: hidden;
+}
+
+.beach-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.beach-caption {
+  flex: 0 0 auto;
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.beach-caption:empty {
+  display: none;
+}
+
 .crossword-label {
   margin: 0;
   font-family: var(--display);
