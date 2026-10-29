@@ -384,7 +384,7 @@ h6 {
   display: grid;
   grid-template-columns: minmax(0, 1.45fr) minmax(220px, 0.7fr);
   gap: 2.5rem 2.25rem;
-  align-items: start;
+  align-items: center;
   max-width: 1240px;
   margin: 0 auto;
   min-height: calc(100vh - 5rem);
