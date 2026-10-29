@@ -560,7 +560,7 @@ h6 {
 
 .spot-photo {
   display: block;
-  width: min(100cqi, calc(100cqb - 1.15em));
+  width: min(100cqi, calc(100cqb - 3.5em));
   aspect-ratio: 1;
   flex: none;
   border: 1.5px solid var(--blue);
@@ -579,9 +579,10 @@ h6 {
 .spot-caption {
   flex: 0 0 auto;
   width: 100%;
-  height: 1.15em;
-  margin-top: 0.15rem;
-  font-size: 0.68rem;
+  max-height: 3.45em;
+  margin-top: 0.2rem;
+  overflow: hidden;
+  font-size: 0.62rem;
   font-weight: 600;
   line-height: 1.15;
   text-align: center;
