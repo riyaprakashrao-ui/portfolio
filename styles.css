@@ -472,6 +472,10 @@ h6 {
   transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+.crossword.is-from-right {
+  transform: translateX(101%);
+}
+
 .about-photo.is-crossword-open .crossword {
   transform: translateX(0);
 }

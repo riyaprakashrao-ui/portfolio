@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href="beetle-2.png" />
   <title>About</title>
-  <link rel="stylesheet" href="styles.css?v=cross2" />
+  <link rel="stylesheet" href="styles.css?v=cross3" />
 </head>
 <body>
   <nav class="nav">
@@ -83,15 +83,18 @@
     const openCrossword = document.getElementById("crosswordOpen");
     const closeCrossword = document.getElementById("crosswordClose");
     const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let fromRight = false;
 
     function showCrossword() {
+      crossword.classList.toggle("is-from-right", fromRight);
       crossword.hidden = false;
       openCrossword.setAttribute("aria-expanded", "true");
       if (reduceMotion) {
         photo.classList.add("is-crossword-open");
         return;
       }
-      requestAnimationFrame(() => photo.classList.add("is-crossword-open"));
+      crossword.getBoundingClientRect();
+      photo.classList.add("is-crossword-open");
     }
 
     function hideCrossword() {
@@ -99,12 +102,14 @@
       openCrossword.setAttribute("aria-expanded", "false");
       if (reduceMotion) {
         crossword.hidden = true;
+        fromRight = !fromRight;
         return;
       }
       crossword.addEventListener(
         "transitionend",
         () => {
           crossword.hidden = true;
+          fromRight = !fromRight;
         },
         { once: true }
       );
