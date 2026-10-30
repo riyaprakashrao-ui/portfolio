@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href="beetle-2.png" />
   <title>About</title>
-  <link rel="stylesheet" href="styles.css?v=lists20" />
+  <link rel="stylesheet" href="styles.css?v=lists21" />
 </head>
 <body>
   <nav class="nav">
@@ -117,7 +117,7 @@
               </ol>
             </div>
           </div>
-          <button type="button" class="xw-check" id="xw-check">check</button>
+          <button type="button" class="xw-check" id="xw-check" aria-pressed="false">check</button>
           <p class="xw-status" id="xw-status" aria-live="polite"></p>
         </div>
       </div>
@@ -222,45 +222,12 @@
     const xwCells = [];
     let xwDir = "across";
     let xwCursor = null;
-    let xwRippling = false;
-
-    function punchBlack(src) {
-      return new Promise((resolve) => {
-        const img = new Image();
-        img.onload = () => {
-          const canvas = document.createElement("canvas");
-          canvas.width = img.width;
-          canvas.height = img.height;
-          const ctx = canvas.getContext("2d");
-          ctx.drawImage(img, 0, 0);
-          const frame = ctx.getImageData(0, 0, canvas.width, canvas.height);
-          const px = frame.data;
-          for (let i = 0; i < px.length; i += 4) {
-            if (px[i] < 36 && px[i + 1] < 36 && px[i + 2] < 36) px[i + 3] = 0;
-          }
-          ctx.putImageData(frame, 0, 0);
-          resolve(canvas.toDataURL("image/png"));
-        };
-        img.src = src;
-      });
-    }
-
-    Promise.all([punchBlack("beetle-2.png"), punchBlack("beetle-1.png")]).then(([a, b]) => {
-      xwGrid.style.setProperty("--beetle-a", `url("${a}")`);
-      xwGrid.style.setProperty("--beetle-b", `url("${b}")`);
-    });
 
     for (let r = 0; r < 7; r += 1) {
       for (let c = 0; c < 7; c += 1) {
         const letter = xwRows[r][c];
         const cell = document.createElement("span");
         cell.className = "xw-cell";
-        cell.style.setProperty("--r", r);
-        cell.style.setProperty("--c", c);
-        cell.style.setProperty("--i", r * 7 + c);
-        const tile = document.createElement("span");
-        tile.className = `xw-tile ${(r + c) % 2 === 0 ? "xw-tile-a" : "xw-tile-b"}`;
-        cell.append(tile);
         if (letter === ".") {
           cell.classList.add("is-block");
           xwGrid.append(cell);
@@ -308,6 +275,10 @@
         const xwInsert = (letter) => {
           input.value = letter.toUpperCase();
           cell.classList.remove("is-wrong");
+          document.getElementById("xw-check").setAttribute(
+            "aria-pressed",
+            xwGrid.querySelector(".xw-cell.is-wrong") ? "true" : "false"
+          );
           xwAdvance(record, false);
           xwSolve();
         };
@@ -420,49 +391,33 @@
 
     function xwSolve() {
       const solved = xwCells.every((item) => item.input.value.toUpperCase() === item.letter);
-      const status = document.getElementById("xw-status");
-      if (!solved) {
-        xwGrid.classList.remove("is-solved");
-        xwRippling = false;
-        xwCells.forEach((item) => {
-          item.input.disabled = false;
-        });
-        return false;
-      }
-      if (xwRippling || xwGrid.classList.contains("is-solved")) return true;
-      status.textContent = "Solved.";
-      if (reduceMotion) {
-        document.querySelector("#panel-crossword .crossword-label").textContent = "complete!";
-        return true;
-      }
-      xwRippling = true;
-      xwGrid.classList.add("is-solved");
-      xwCells.forEach((item) => {
-        item.input.disabled = true;
-      });
+      if (!solved) return false;
+      xwCells.forEach((item) => item.input.parentElement.classList.remove("is-wrong"));
+      document.getElementById("xw-check").setAttribute("aria-pressed", "false");
+      document.getElementById("xw-status").textContent = "Solved.";
+      document.querySelector("#panel-crossword .crossword-label").textContent = "complete!";
       return true;
     }
 
-    xwGrid.addEventListener("animationend", (event) => {
-      if (event.animationName !== "xw-ripple") return;
-      const cell = event.target.closest(".xw-cell");
-      if (!cell || cell.style.getPropertyValue("--i") !== "48") return;
-      xwGrid.classList.remove("is-solved");
-      xwRippling = false;
-      document.querySelector("#panel-crossword .crossword-label").textContent = "complete!";
-      xwCells.forEach((item) => {
-        item.input.disabled = false;
-      });
-    });
-
     document.getElementById("xw-check").addEventListener("click", () => {
+      const check = document.getElementById("xw-check");
       if (xwSolve()) return;
+      const marked = xwCells.some((item) => item.input.parentElement.classList.contains("is-wrong"));
+      if (marked) {
+        xwCells.forEach((item) => item.input.parentElement.classList.remove("is-wrong"));
+        document.getElementById("xw-status").textContent = "";
+        check.setAttribute("aria-pressed", "false");
+        return;
+      }
       let wrong = 0;
       xwCells.forEach((item) => {
         const missed = item.input.value.toUpperCase() !== item.letter;
-        item.input.parentElement.classList.toggle("is-wrong", missed);
-        if (missed) wrong += 1;
+        if (missed) {
+          item.input.parentElement.classList.add("is-wrong");
+          wrong += 1;
+        }
       });
+      check.setAttribute("aria-pressed", wrong ? "true" : "false");
       document.getElementById("xw-status").textContent = wrong
         ? `${wrong} ${wrong === 1 ? "square is" : "squares are"} marked.`
         : "";
