@@ -56,10 +56,10 @@
       <img src="headshot.svg" alt="Riya in a UC San Diego graduation sash, with illustrated beetles" />
       <div class="about-panel is-list" id="panel-eating" hidden>
         <div class="panel-head">
-          <p class="crossword-label">Eating out</p>
+          <p class="crossword-label">Favorite eats</p>
           <button type="button" class="crossword-close" data-close>close</button>
         </div>
-        <div class="spot-tabs" role="tablist" aria-label="Eating out categories">
+        <div class="spot-tabs" role="tablist" aria-label="Favorite eats categories">
           <button type="button" class="spot-tab" role="tab" id="tab-bakeries" aria-selected="true" aria-controls="grid-bakeries" data-tab="bakeries">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 15c0-4 3.2-8 7-8s7 4 7 8v2H5v-2z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M9 11c.8.8 1.6.8 3 0s2.2-.8 3 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
             bakeries
@@ -138,7 +138,7 @@
     const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
     let current = null;
 
-    // Eating out opens in Google Maps. Wishlist uses the item link.
+    // Favorite eats opens in Google Maps. Wishlist uses the item link.
     function place(dish, spot, city, mapsCity) {
       return {
         name: `${dish} @ ${spot}, ${city}`,
