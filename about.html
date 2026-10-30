@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href="beetle-2.png" />
   <title>About</title>
-  <link rel="stylesheet" href="styles.css?v=lists13" />
+  <link rel="stylesheet" href="styles.css?v=lists14" />
 </head>
 <body>
   <nav class="nav">
@@ -100,15 +100,37 @@
       </div>
 
       <div class="about-panel crossword" id="panel-crossword" hidden>
-        <p class="crossword-label">Crossword</p>
-        <div class="crossword-grid" aria-hidden="true">
-          <span></span><span></span><span></span><span></span><span></span>
-          <span></span><span></span><span></span><span></span><span></span>
-          <span></span><span></span><span></span><span></span><span></span>
-          <span></span><span></span><span></span><span></span><span></span>
-          <span></span><span></span><span></span><span></span><span></span>
+        <div class="panel-head">
+          <p class="crossword-label">Beetle mania</p>
+          <button type="button" class="crossword-close" data-close>close</button>
         </div>
-        <button type="button" class="crossword-close" data-close>close</button>
+        <div class="xw">
+          <div class="xw-grid" id="xw-grid"></div>
+          <div class="xw-clues">
+            <div>
+              <p class="xw-clue-label">Across</p>
+              <ol>
+                <li value="3">Bug’s four-door cousin</li>
+                <li value="4">A ladybug’s classic coat color</li>
+                <li value="6">A beetle’s very first home</li>
+                <li value="8">Betel leaf, all wrapped up</li>
+                <li value="9">___ Road, where the Fab Four made their famous crossing</li>
+              </ol>
+            </div>
+            <div>
+              <p class="xw-clue-label">Down</p>
+              <ol>
+                <li value="1">Beetle with antlers, but no hooves</li>
+                <li value="2">A beetle in its awkward pre-wing years</li>
+                <li value="5">What some beetles roll with</li>
+                <li value="7">Young beetle, or a bite to eat</li>
+                <li value="8">What follows “Honey” in a Beatles song</li>
+              </ol>
+            </div>
+          </div>
+          <button type="button" class="xw-check" id="xw-check">check</button>
+          <p class="xw-status" id="xw-status" aria-live="polite"></p>
+        </div>
       </div>
 
       <div class="about-panel is-list" id="panel-wishlist" hidden>
@@ -212,6 +234,152 @@
 
     document.querySelectorAll(".spot-grid").forEach((grid) => {
       fillGrid(grid, spots[grid.dataset.list] || []);
+    });
+
+    const xwRows = ["..S.L..", "JETTA..", "..A.RED", "EGG.V.U", ".R.PAAN", ".U.I..G", "ABBEY.."];
+    const xwBlocks = [
+      ["mint", "yellow", "", "lavender", "", "red", "olive"],
+      ["", "", "", "", "", "yellow", "mint"],
+      ["lavender", "olive", "", "red", "", "", ""],
+      ["", "", "", "mint", "", "yellow", ""],
+      ["red", "", "olive", "", "", "", ""],
+      ["yellow", "", "lavender", "", "mint", "blue", ""],
+      ["", "", "", "", "", "olive", "lavender"],
+    ];
+    const xwFills = ["mint", "yellow", "lavender", "red", "olive", "blue"];
+    const xwGrid = document.getElementById("xw-grid");
+    const xwCells = [];
+
+    function xwColor(name) {
+      return name ? `var(--${name})` : "";
+    }
+
+    function punchBlack(src) {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement("canvas");
+          canvas.width = img.width;
+          canvas.height = img.height;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0);
+          const frame = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          const px = frame.data;
+          for (let i = 0; i < px.length; i += 4) {
+            if (px[i] < 36 && px[i + 1] < 36 && px[i + 2] < 36) px[i + 3] = 0;
+          }
+          ctx.putImageData(frame, 0, 0);
+          resolve(canvas.toDataURL("image/png"));
+        };
+        img.src = src;
+      });
+    }
+
+    Promise.all([punchBlack("beetle-2.png"), punchBlack("beetle-1.png")]).then(([a, b]) => {
+      xwGrid.style.setProperty("--beetle-a", `url("${a}")`);
+      xwGrid.style.setProperty("--beetle-b", `url("${b}")`);
+    });
+
+    for (let r = 0; r < 7; r += 1) {
+      for (let c = 0; c < 7; c += 1) {
+        const letter = xwRows[r][c];
+        const cell = document.createElement("span");
+        cell.className = "xw-cell";
+        cell.style.setProperty("--r", r);
+        cell.style.setProperty("--c", c);
+        const fill = xwFills[(r + c) % xwFills.length];
+        cell.style.setProperty("--fill", `var(--${fill})`);
+        const tileA = document.createElement("span");
+        tileA.className = "xw-tile xw-tile-a";
+        const tileB = document.createElement("span");
+        tileB.className = "xw-tile xw-tile-b";
+        cell.append(tileA, tileB);
+        if (letter === ".") {
+          cell.classList.add("is-block");
+          cell.style.setProperty("--block", xwColor(xwBlocks[r][c]));
+          xwGrid.append(cell);
+          continue;
+        }
+        const across = (c === 0 || xwRows[r][c - 1] === ".") && c < 6 && xwRows[r][c + 1] !== ".";
+        const down = (r === 0 || xwRows[r - 1][c] === ".") && r < 6 && xwRows[r + 1][c] !== ".";
+        const record = { r, c, letter, input: null };
+        if (across || down) {
+          const num = document.createElement("span");
+          num.className = "xw-num";
+          num.textContent = String(xwCells.filter((item) => item.num).length + 1);
+          record.num = num.textContent;
+          cell.append(num);
+        }
+        const input = document.createElement("input");
+        input.maxLength = 1;
+        input.autocomplete = "off";
+        input.autocapitalize = "characters";
+        input.spellcheck = false;
+        input.setAttribute("aria-label", record.num ? `Square ${record.num}` : "Square");
+        input.addEventListener("input", () => {
+          input.value = input.value.replace(/[^a-z]/gi, "").slice(-1).toUpperCase();
+          cell.classList.remove("is-wrong");
+          if (input.value) xwMove(record, 0, 1, true);
+          xwSolve();
+        });
+        input.addEventListener("keydown", (event) => {
+          if (event.key === "ArrowRight") xwMove(record, 0, 1);
+          else if (event.key === "ArrowLeft") xwMove(record, 0, -1);
+          else if (event.key === "ArrowDown") xwMove(record, 1, 0);
+          else if (event.key === "ArrowUp") xwMove(record, -1, 0);
+          else if (event.key === "Backspace" && !input.value) xwMove(record, 0, -1, true);
+          else return;
+          event.preventDefault();
+        });
+        record.input = input;
+        cell.append(input);
+        xwCells.push(record);
+        xwGrid.append(cell);
+      }
+    }
+
+    function xwMove(from, dr, dc, typed) {
+      let r = from.r + dr;
+      let c = from.c + dc;
+      if (typed && dr === 0 && dc === 1 && (c > 6 || xwRows[r][c] === ".")) {
+        const next = xwCells.find((item) => item.r > from.r || (item.r === from.r && item.c > from.c));
+        if (next) next.input.focus();
+        return;
+      }
+      while (r >= 0 && r < 7 && c >= 0 && c < 7) {
+        const next = xwCells.find((item) => item.r === r && item.c === c);
+        if (next) {
+          next.input.focus();
+          return;
+        }
+        r += dr;
+        c += dc;
+      }
+    }
+
+    function xwSolve() {
+      const solved = xwCells.every((item) => item.input.value.toUpperCase() === item.letter);
+      xwGrid.classList.toggle("is-solved", solved);
+      if (solved && reduceMotion) xwGrid.classList.add("is-still");
+      xwCells.forEach((item) => {
+        item.input.disabled = solved;
+      });
+      const status = document.getElementById("xw-status");
+      if (solved) status.textContent = "Solved. The beetles are rippling through.";
+      return solved;
+    }
+
+    document.getElementById("xw-check").addEventListener("click", () => {
+      if (xwSolve()) return;
+      let wrong = 0;
+      xwCells.forEach((item) => {
+        const missed = item.input.value !== "" && item.input.value.toUpperCase() !== item.letter;
+        item.input.parentElement.classList.toggle("is-wrong", missed);
+        if (missed) wrong += 1;
+      });
+      document.getElementById("xw-status").textContent = wrong
+        ? `${wrong} ${wrong === 1 ? "letter is" : "letters are"} crossed out.`
+        : "Fill in a letter to check it.";
     });
 
     document.querySelectorAll(".spot-tab").forEach((tab) => {
