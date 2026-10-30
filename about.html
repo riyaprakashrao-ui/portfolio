@@ -139,19 +139,20 @@
     let current = null;
 
     // Favorite eats opens in Google Maps. Wishlist uses the item link.
-    function place(dish, spot, city, mapsCity) {
+    function place(dish, spot, city, mapsCity, image) {
       return {
         name: `${dish} @ ${spot}, ${city}`,
         href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${spot} ${mapsCity}`)}`,
+        image,
       };
     }
 
     const spots = {
       restaurants: [
-        place("Sweetie pie roll", "Sushi Nekosan", "SD", "San Diego"),
-        place("Eggplant carpaccio", "Bustan", "NYC", "New York"),
-        place("Tea leaf salad", "Burma Love", "SF", "San Francisco"),
-        place("Mushroom pizza", "Ken’s Artisan Pizza", "PDX", "Portland"),
+        place("Sweetie pie roll", "Sushi Nekosan", "SD", "San Diego", "assets/about/eats/sushi-nekosan.jpg"),
+        place("Eggplant carpaccio", "Bustan", "NYC", "New York", "assets/about/eats/bustan.jpg"),
+        place("Tea leaf salad", "Burma Love", "SF", "San Francisco", "assets/about/eats/burma-love.jpg"),
+        place("Mushroom pizza", "Ken’s Artisan Pizza", "PDX", "Portland", "assets/about/eats/kens.jpg"),
       ],
       drinks: [
         place("Golden lassi", "Captain’s Quarters", "SD", "San Diego"),
@@ -196,6 +197,8 @@
             const img = document.createElement("img");
             img.src = item.image;
             img.alt = "";
+            img.loading = "lazy";
+            img.decoding = "async";
             frame.append(img);
           }
           const caption = document.createElement("span");
