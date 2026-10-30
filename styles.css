@@ -719,13 +719,10 @@ a.spot:focus-visible {
   outline: none;
 }
 
-.xw-cell.is-word {
-  background: var(--mint);
-}
-
+.xw-cell.is-word,
 .xw-cell.is-current,
 .xw-cell:focus-within {
-  background: var(--yellow);
+  background: var(--mint);
 }
 
 .xw-cell.is-wrong input {
