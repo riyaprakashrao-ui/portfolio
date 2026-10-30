@@ -679,6 +679,7 @@ a.spot:focus-visible {
   border-radius: 3px;
   background: var(--white);
   min-width: 0;
+  overflow: hidden;
 }
 
 .xw-cell.is-block {
@@ -725,19 +726,16 @@ a.spot:focus-visible {
   background: var(--mint);
 }
 
-.xw-cell.is-wrong input {
-  color: var(--red);
-}
-
 .xw-cell.is-wrong::after {
   content: "";
   position: absolute;
-  z-index: 3;
-  left: 16%;
-  right: 16%;
-  top: 62%;
+  z-index: 4;
+  left: 50%;
+  top: 50%;
+  width: 145%;
   height: 2px;
   background: var(--red);
+  transform: translate(-50%, -50%) rotate(-45deg);
   pointer-events: none;
 }
 
@@ -772,8 +770,8 @@ a.spot:focus-visible {
 }
 
 .xw-grid.is-solved .xw-tile {
-  animation: xw-ripple 2.8s linear 1 both;
-  animation-delay: calc(var(--i) * 32ms);
+  animation: xw-ripple 0.42s ease-in-out 1 both;
+  animation-delay: calc(var(--i) * 0.42s);
 }
 
 .xw-grid.is-solved .xw-num,
@@ -782,13 +780,17 @@ a.spot:focus-visible {
 }
 
 @keyframes xw-ripple {
-  0%, 18%, 52%, 100% {
+  0% {
     opacity: 0;
-    transform: scale(0.45);
+    transform: scale(0.55);
   }
-  8%, 64% {
+  30%, 70% {
     opacity: 1;
     transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.7);
   }
 }
 

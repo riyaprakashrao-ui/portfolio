@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href="beetle-2.png" />
   <title>About</title>
-  <link rel="stylesheet" href="styles.css?v=lists17" />
+  <link rel="stylesheet" href="styles.css?v=lists19" />
 </head>
 <body>
   <nav class="nav">
@@ -450,7 +450,10 @@
       }
       if (xwRippling || xwGrid.classList.contains("is-solved")) return true;
       status.textContent = "Solved.";
-      if (reduceMotion) return true;
+      if (reduceMotion) {
+        document.querySelector("#panel-crossword .crossword-label").textContent = "complete!";
+        return true;
+      }
       xwRippling = true;
       xwGrid.classList.add("is-solved");
       xwCells.forEach((item) => {
@@ -465,6 +468,7 @@
       if (!cell || cell.style.getPropertyValue("--i") !== "48") return;
       xwGrid.classList.remove("is-solved");
       xwRippling = false;
+      document.querySelector("#panel-crossword .crossword-label").textContent = "complete!";
       xwCells.forEach((item) => {
         item.input.disabled = false;
       });
@@ -474,13 +478,13 @@
       if (xwSolve()) return;
       let wrong = 0;
       xwCells.forEach((item) => {
-        const missed = item.input.value !== "" && item.input.value.toUpperCase() !== item.letter;
+        const missed = item.input.value.toUpperCase() !== item.letter;
         item.input.parentElement.classList.toggle("is-wrong", missed);
         if (missed) wrong += 1;
       });
       document.getElementById("xw-status").textContent = wrong
-        ? `${wrong} ${wrong === 1 ? "letter is" : "letters are"} crossed out.`
-        : "Fill in a letter to check it.";
+        ? `${wrong} ${wrong === 1 ? "square is" : "squares are"} marked.`
+        : "";
     });
 
     document.querySelectorAll(".spot-tab").forEach((tab) => {
