@@ -521,10 +521,11 @@ h6 {
   cursor: pointer;
 }
 
-.spot-tab svg {
+.spot-tab img {
   width: 18px;
   height: 18px;
   display: block;
+  object-fit: contain;
 }
 
 .spot-tab[aria-selected="true"] {
