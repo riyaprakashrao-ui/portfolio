@@ -719,6 +719,11 @@ a.spot:focus-visible {
   outline: none;
 }
 
+.xw-cell.is-word {
+  background: var(--mint);
+}
+
+.xw-cell.is-current,
 .xw-cell:focus-within {
   background: var(--yellow);
 }
@@ -745,11 +750,11 @@ a.spot:focus-visible {
 
 .xw-tile {
   position: absolute;
-  inset: 0;
+  inset: 10%;
   border-radius: inherit;
   background-repeat: no-repeat;
-  background-size: 700% 700%;
-  background-position: calc(var(--c) * 100% / 6) calc(var(--r) * 100% / 6);
+  background-position: center;
+  background-size: contain;
   opacity: 0;
   pointer-events: none;
 }
@@ -762,17 +767,16 @@ a.spot:focus-visible {
   background-image: var(--beetle-b);
 }
 
-.xw-grid.is-solved .xw-cell {
-  background: var(--fill);
+.xw-grid.is-solved .xw-cell,
+.xw-grid.is-solved .xw-cell.is-word,
+.xw-grid.is-solved .xw-cell.is-current,
+.xw-grid.is-solved .xw-cell:focus-within {
+  background: var(--white);
 }
 
-.xw-grid.is-solved .xw-tile-a {
-  opacity: 1;
-}
-
-.xw-grid.is-solved .xw-tile-b {
-  animation: xw-ripple 2.6s ease-in-out infinite;
-  animation-delay: calc((var(--r) + var(--c)) * 90ms);
+.xw-grid.is-solved .xw-tile {
+  animation: xw-ripple 2.8s linear 1 both;
+  animation-delay: calc(var(--i) * 32ms);
 }
 
 .xw-grid.is-solved .xw-num,
@@ -780,20 +784,14 @@ a.spot:focus-visible {
   opacity: 0;
 }
 
-.xw-grid.is-still .xw-tile-b {
-  animation: none;
-  opacity: 0;
-}
-
 @keyframes xw-ripple {
-  0%, 100% {
+  0%, 18%, 52%, 100% {
     opacity: 0;
-    transform: scale(0.82);
+    transform: scale(0.45);
   }
-  42%, 58% {
+  8%, 64% {
     opacity: 1;
-    transform: scale(1.08);
-    z-index: 2;
+    transform: scale(1);
   }
 }
 
@@ -887,7 +885,7 @@ a.spot:focus-visible {
     transition: none;
   }
 
-  .xw-grid.is-solved .xw-tile-b {
+  .xw-grid.is-solved .xw-tile {
     animation: none;
     opacity: 0;
   }

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href="beetle-2.png" />
   <title>About</title>
-  <link rel="stylesheet" href="styles.css?v=lists15" />
+  <link rel="stylesheet" href="styles.css?v=lists16" />
 </head>
 <body>
   <nav class="nav">
@@ -237,9 +237,11 @@
     });
 
     const xwRows = ["..S.L..", "JETTA..", "..A.RED", "EGG.V.U", ".R.PAAN", ".U.I..G", "ABBEY.."];
-    const xwFills = ["mint", "yellow", "lavender", "red", "olive", "blue"];
     const xwGrid = document.getElementById("xw-grid");
     const xwCells = [];
+    let xwDir = "across";
+    let xwCursor = null;
+    let xwRippling = false;
 
     function punchBlack(src) {
       return new Promise((resolve) => {
@@ -274,13 +276,10 @@
         cell.className = "xw-cell";
         cell.style.setProperty("--r", r);
         cell.style.setProperty("--c", c);
-        const fill = xwFills[(r + c) % xwFills.length];
-        cell.style.setProperty("--fill", `var(--${fill})`);
-        const tileA = document.createElement("span");
-        tileA.className = "xw-tile xw-tile-a";
-        const tileB = document.createElement("span");
-        tileB.className = "xw-tile xw-tile-b";
-        cell.append(tileA, tileB);
+        cell.style.setProperty("--i", r * 7 + c);
+        const tile = document.createElement("span");
+        tile.className = `xw-tile ${(r + c) % 2 === 0 ? "xw-tile-a" : "xw-tile-b"}`;
+        cell.append(tile);
         if (letter === ".") {
           cell.classList.add("is-block");
           xwGrid.append(cell);
@@ -288,7 +287,16 @@
         }
         const across = (c === 0 || xwRows[r][c - 1] === ".") && c < 6 && xwRows[r][c + 1] !== ".";
         const down = (r === 0 || xwRows[r - 1][c] === ".") && r < 6 && xwRows[r + 1][c] !== ".";
-        const record = { r, c, letter, input: null };
+        const record = {
+          r,
+          c,
+          letter,
+          input: null,
+          startsAcross: across,
+          startsDown: down,
+          inAcross: (c > 0 && xwRows[r][c - 1] !== ".") || (c < 6 && xwRows[r][c + 1] !== "."),
+          inDown: (r > 0 && xwRows[r - 1][c] !== ".") || (r < 6 && xwRows[r + 1][c] !== "."),
+        };
         if (across || down) {
           const num = document.createElement("span");
           num.className = "xw-num";
@@ -302,19 +310,40 @@
         input.autocapitalize = "characters";
         input.spellcheck = false;
         input.setAttribute("aria-label", record.num ? `Square ${record.num}` : "Square");
+        input.addEventListener("pointerdown", () => {
+          xwChooseDir(record);
+          xwCursor = record;
+          xwHighlight(record);
+        });
+        input.addEventListener("focus", () => {
+          xwCursor = record;
+          if (!(xwDir === "across" ? record.inAcross : record.inDown)) {
+            xwDir = record.inAcross ? "across" : "down";
+          }
+          xwHighlight(record);
+        });
         input.addEventListener("input", () => {
           input.value = input.value.replace(/[^a-z]/gi, "").slice(-1).toUpperCase();
           cell.classList.remove("is-wrong");
-          if (input.value) xwMove(record, 0, 1, true);
+          if (input.value) xwAdvance(record, false);
           xwSolve();
         });
         input.addEventListener("keydown", (event) => {
-          if (event.key === "ArrowRight") xwMove(record, 0, 1);
-          else if (event.key === "ArrowLeft") xwMove(record, 0, -1);
-          else if (event.key === "ArrowDown") xwMove(record, 1, 0);
-          else if (event.key === "ArrowUp") xwMove(record, -1, 0);
-          else if (event.key === "Backspace" && !input.value) xwMove(record, 0, -1, true);
-          else return;
+          if (event.key === "ArrowRight") {
+            xwDir = "across";
+            xwMove(record, 0, 1);
+          } else if (event.key === "ArrowLeft") {
+            xwDir = "across";
+            xwMove(record, 0, -1);
+          } else if (event.key === "ArrowDown") {
+            xwDir = "down";
+            xwMove(record, 1, 0);
+          } else if (event.key === "ArrowUp") {
+            xwDir = "down";
+            xwMove(record, -1, 0);
+          } else if (event.key === "Backspace" && !input.value) {
+            xwAdvance(record, true);
+          } else return;
           event.preventDefault();
         });
         record.input = input;
@@ -324,16 +353,59 @@
       }
     }
 
-    function xwMove(from, dr, dc, typed) {
-      let r = from.r + dr;
-      let c = from.c + dc;
-      if (typed && dr === 0 && dc === 1 && (c > 6 || xwRows[r][c] === ".")) {
-        const next = xwCells.find((item) => item.r > from.r || (item.r === from.r && item.c > from.c));
-        if (next) next.input.focus();
+    function xwAt(r, c) {
+      return xwCells.find((item) => item.r === r && item.c === c);
+    }
+
+    function xwChooseDir(record) {
+      const again = xwCursor === record;
+      if (again && record.inAcross && record.inDown) {
+        xwDir = xwDir === "across" ? "down" : "across";
         return;
       }
+      if (record.startsAcross && !record.startsDown) xwDir = "across";
+      else if (record.startsDown && !record.startsAcross) xwDir = "down";
+      else if (record.startsAcross) xwDir = "across";
+      else if (record.inAcross && !record.inDown) xwDir = "across";
+      else if (record.inDown && !record.inAcross) xwDir = "down";
+      else if (!(xwDir === "across" ? record.inAcross : record.inDown)) {
+        xwDir = record.inAcross ? "across" : "down";
+      }
+    }
+
+    function xwHighlight(record) {
+      xwCells.forEach((item) => {
+        item.input.parentElement.classList.remove("is-word", "is-current");
+      });
+      const dr = xwDir === "down" ? 1 : 0;
+      const dc = xwDir === "across" ? 1 : 0;
+      let r = record.r;
+      let c = record.c;
+      while (r - dr >= 0 && c - dc >= 0 && xwRows[r - dr][c - dc] !== ".") {
+        r -= dr;
+        c -= dc;
+      }
+      while (r >= 0 && r < 7 && c >= 0 && c < 7 && xwRows[r][c] !== ".") {
+        const item = xwAt(r, c);
+        item.input.parentElement.classList.add(item === record ? "is-current" : "is-word");
+        r += dr;
+        c += dc;
+      }
+    }
+
+    function xwAdvance(from, back) {
+      const step = back ? -1 : 1;
+      const dr = xwDir === "down" ? step : 0;
+      const dc = xwDir === "across" ? step : 0;
+      const next = xwAt(from.r + dr, from.c + dc);
+      if (next) next.input.focus();
+    }
+
+    function xwMove(from, dr, dc) {
+      let r = from.r + dr;
+      let c = from.c + dc;
       while (r >= 0 && r < 7 && c >= 0 && c < 7) {
-        const next = xwCells.find((item) => item.r === r && item.c === c);
+        const next = xwAt(r, c);
         if (next) {
           next.input.focus();
           return;
@@ -345,15 +417,36 @@
 
     function xwSolve() {
       const solved = xwCells.every((item) => item.input.value.toUpperCase() === item.letter);
-      xwGrid.classList.toggle("is-solved", solved);
-      if (solved && reduceMotion) xwGrid.classList.add("is-still");
-      xwCells.forEach((item) => {
-        item.input.disabled = solved;
-      });
       const status = document.getElementById("xw-status");
-      if (solved) status.textContent = "Solved. The beetles are rippling through.";
-      return solved;
+      if (!solved) {
+        xwGrid.classList.remove("is-solved");
+        xwRippling = false;
+        xwCells.forEach((item) => {
+          item.input.disabled = false;
+        });
+        return false;
+      }
+      if (xwRippling || xwGrid.classList.contains("is-solved")) return true;
+      status.textContent = "Solved.";
+      if (reduceMotion) return true;
+      xwRippling = true;
+      xwGrid.classList.add("is-solved");
+      xwCells.forEach((item) => {
+        item.input.disabled = true;
+      });
+      return true;
     }
+
+    xwGrid.addEventListener("animationend", (event) => {
+      if (event.animationName !== "xw-ripple") return;
+      const cell = event.target.closest(".xw-cell");
+      if (!cell || cell.style.getPropertyValue("--i") !== "48") return;
+      xwGrid.classList.remove("is-solved");
+      xwRippling = false;
+      xwCells.forEach((item) => {
+        item.input.disabled = false;
+      });
+    });
 
     document.getElementById("xw-check").addEventListener("click", () => {
       if (xwSolve()) return;
