@@ -321,14 +321,26 @@
             xwDir = record.inAcross ? "across" : "down";
           }
           xwHighlight(record);
+          requestAnimationFrame(() => input.select());
         });
-        input.addEventListener("input", () => {
-          input.value = input.value.replace(/[^a-z]/gi, "").slice(-1).toUpperCase();
+        input.addEventListener("pointerup", () => input.select());
+        const xwInsert = (letter) => {
+          input.value = letter.toUpperCase();
           cell.classList.remove("is-wrong");
-          if (input.value) xwAdvance(record, false);
+          xwAdvance(record, false);
           xwSolve();
-        });
+        };
+        let inserted = false;
         input.addEventListener("keydown", (event) => {
+          if (/^[a-z]$/i.test(event.key) && !event.metaKey && !event.ctrlKey && !event.altKey) {
+            event.preventDefault();
+            inserted = true;
+            xwInsert(event.key);
+            queueMicrotask(() => {
+              inserted = false;
+            });
+            return;
+          }
           if (event.key === "ArrowRight") {
             xwDir = "across";
             xwMove(record, 0, 1);
@@ -345,6 +357,16 @@
             xwAdvance(record, true);
           } else return;
           event.preventDefault();
+        });
+        input.addEventListener("beforeinput", (event) => {
+          if (inserted) {
+            inserted = false;
+            event.preventDefault();
+            return;
+          }
+          if (event.inputType !== "insertText" || !event.data || !/^[a-z]$/i.test(event.data)) return;
+          event.preventDefault();
+          xwInsert(event.data);
         });
         record.input = input;
         cell.append(input);
