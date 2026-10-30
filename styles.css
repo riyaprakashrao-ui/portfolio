@@ -682,7 +682,7 @@ a.spot:focus-visible {
 }
 
 .xw-cell.is-block {
-  background: var(--block);
+  background: var(--olive);
 }
 
 .xw-num {

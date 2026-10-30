@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href="beetle-2.png" />
   <title>About</title>
-  <link rel="stylesheet" href="styles.css?v=lists14" />
+  <link rel="stylesheet" href="styles.css?v=lists15" />
 </head>
 <body>
   <nav class="nav">
@@ -237,22 +237,9 @@
     });
 
     const xwRows = ["..S.L..", "JETTA..", "..A.RED", "EGG.V.U", ".R.PAAN", ".U.I..G", "ABBEY.."];
-    const xwBlocks = [
-      ["mint", "yellow", "", "lavender", "", "red", "olive"],
-      ["", "", "", "", "", "yellow", "mint"],
-      ["lavender", "olive", "", "red", "", "", ""],
-      ["", "", "", "mint", "", "yellow", ""],
-      ["red", "", "olive", "", "", "", ""],
-      ["yellow", "", "lavender", "", "mint", "blue", ""],
-      ["", "", "", "", "", "olive", "lavender"],
-    ];
     const xwFills = ["mint", "yellow", "lavender", "red", "olive", "blue"];
     const xwGrid = document.getElementById("xw-grid");
     const xwCells = [];
-
-    function xwColor(name) {
-      return name ? `var(--${name})` : "";
-    }
 
     function punchBlack(src) {
       return new Promise((resolve) => {
@@ -296,7 +283,6 @@
         cell.append(tileA, tileB);
         if (letter === ".") {
           cell.classList.add("is-block");
-          cell.style.setProperty("--block", xwColor(xwBlocks[r][c]));
           xwGrid.append(cell);
           continue;
         }
