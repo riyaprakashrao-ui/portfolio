@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href="beetle-2.png" />
   <title>About</title>
-  <link rel="stylesheet" href="styles.css?v=lists19" />
+  <link rel="stylesheet" href="styles.css?v=lists20" />
 </head>
 <body>
   <nav class="nav">
@@ -29,11 +29,11 @@
           and sustainability. When I’m not working, I’m cooking,
           <button type="button" class="about-trigger is-eating" data-panel="eating" aria-expanded="false" aria-controls="panel-eating">eating out</button>
           (@imriyallyhungry on Beli),
-          <button type="button" class="about-trigger is-swimming" data-panel="beaches" aria-expanded="false" aria-controls="panel-beaches">swimming</button>,
+          swimming,
           lifting weights, filling out a
           <button type="button" class="about-trigger is-crossword" data-panel="crossword" aria-expanded="false" aria-controls="panel-crossword">crossword</button>,
           or spending excessive time (and money) on
-          <button type="button" class="about-trigger is-wishlist" data-panel="wishlist" aria-expanded="false" aria-controls="panel-wishlist">The Real Real</button>.
+          The Real Real.
         </p>
       </section>
       <section class="about-row">
@@ -88,17 +88,6 @@
         <div class="spot-grid" id="grid-drinks" role="tabpanel" aria-labelledby="tab-drinks" data-list="drinks" hidden></div>
       </div>
 
-      <div class="about-panel is-list" id="panel-beaches" hidden>
-        <div class="panel-head">
-          <p class="crossword-label">Beach recommendation</p>
-          <button type="button" class="crossword-close" data-close>close</button>
-        </div>
-        <figure class="beach">
-          <div class="beach-photo"></div>
-          <figcaption class="beach-caption"></figcaption>
-        </figure>
-      </div>
-
       <div class="about-panel crossword" id="panel-crossword" hidden>
         <div class="panel-head">
           <p class="crossword-label">Beetle mania</p>
@@ -133,13 +122,6 @@
         </div>
       </div>
 
-      <div class="about-panel is-list" id="panel-wishlist" hidden>
-        <div class="panel-head">
-          <p class="crossword-label">Wishlist</p>
-          <button type="button" class="crossword-close" data-close>close</button>
-        </div>
-        <div class="spot-grid" data-list="wishlist"></div>
-      </div>
     </figure>
   </main>
 
@@ -160,7 +142,7 @@
     const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
     let current = null;
 
-    // Favorite eats opens in Google Maps. Wishlist uses the item link.
+    // Favorite eats opens in Google Maps.
     function place(dish, spot, city, mapsCity, image) {
       return {
         name: `${dish} @ ${spot}, ${city}`,
@@ -200,7 +182,6 @@
         place("Salted pistachio latte", "Finjan", "SD", "San Diego", "assets/about/eats/finjan.jpg"),
         place("Tiramisu latte", "Philz", "SD", "San Diego", "assets/about/eats/philz.jpg"),
       ],
-      wishlist: [{}, {}, {}, {}],
     };
 
     function fillGrid(grid, items) {
