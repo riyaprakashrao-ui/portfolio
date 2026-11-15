@@ -1286,10 +1286,8 @@ a.spot:focus-visible {
   background: var(--white);
 }
 
-.case-question-cards p {
-  margin: 0;
-  font-size: 0.95rem;
-  line-height: 1.45;
+.case-question-cards.is-spaced {
+  margin-bottom: 2.5rem;
 }
 
 /* Pandas research steps — click a step to reveal its explanation */
