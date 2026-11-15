@@ -109,18 +109,8 @@ document.querySelectorAll(".case-scroll").forEach((frame) => {
   frame.querySelector("img")?.addEventListener("load", place);
   place();
 
-  const stopAuto = () => {
-    frame.dataset.userScroll = "true";
-  };
-
-  frame.addEventListener("wheel", stopAuto, { passive: true });
-  frame.addEventListener("touchstart", stopAuto, { passive: true });
-  frame.addEventListener("pointerdown", stopAuto);
-  frame.addEventListener("keydown", stopAuto);
-
   if (thumb && track) {
     thumb.addEventListener("pointerdown", (event) => {
-      stopAuto();
       event.preventDefault();
       const startY = event.clientY;
       const startTop = frame.scrollTop;
@@ -139,44 +129,11 @@ document.querySelectorAll(".case-scroll").forEach((frame) => {
 
     track.addEventListener("pointerdown", (event) => {
       if (event.target === thumb) return;
-      stopAuto();
       const rect = track.getBoundingClientRect();
       const ratio = (event.clientY - rect.top) / rect.height;
       frame.scrollTop = ratio * (frame.scrollHeight - frame.clientHeight);
     });
   }
-
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-  let running = false;
-  let raf = 0;
-
-  const step = () => {
-    if (!running || frame.dataset.userScroll === "true") return;
-    const max = frame.scrollHeight - frame.clientHeight;
-    if (frame.scrollTop >= max - 1) {
-      running = false;
-      return;
-    }
-    frame.scrollTop += 0.7;
-    raf = requestAnimationFrame(step);
-  };
-
-  const io = new IntersectionObserver(
-    ([entry]) => {
-      if (frame.dataset.userScroll === "true") return;
-      const onScreen = entry.isIntersecting && entry.intersectionRatio >= 0.45;
-      if (onScreen && !running) {
-        running = true;
-        raf = requestAnimationFrame(step);
-      } else if (!onScreen) {
-        running = false;
-        cancelAnimationFrame(raf);
-      }
-    },
-    { threshold: [0, 0.45] }
-  );
-  io.observe(frame);
 });
 
 document.querySelectorAll("video[data-src]").forEach((video) => {
