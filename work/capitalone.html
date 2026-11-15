@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href="../beetle-2.png" />
   <title>Capital One</title>
-  <link rel="stylesheet" href="../styles.css?v=content1" />
+  <link rel="stylesheet" href="../styles.css?v=content2" />
 </head>
 <body class="case">
   <aside class="case-sidebar">
@@ -313,7 +313,7 @@
           </button>
         </figure>
 
-        <div class="case-split is-middle">
+        <div class="case-split is-content">
           <div>
             <h4>C. Content Strategy</h4>
             <p>
@@ -325,9 +325,12 @@
               without a reliable way to close the gap themselves.
             </p>
           </div>
-          <button type="button" class="case-zoom case-scroll" data-lightbox aria-label="View the component page template">
+        <div class="case-scroll-wrap">
+          <div class="case-scroll" tabindex="0" aria-label="Proposed component page. Scroll to read the template.">
             <img src="../assets/case-1/content.png" alt="Proposed component page with context, do's and don'ts, examples, anatomy, variants, and code snippets" />
-          </button>
+          </div>
+          <div class="case-scroll-track" aria-hidden="true"><div class="case-scroll-thumb"></div></div>
+        </div>
         </div>
       </section>
 
@@ -394,7 +397,7 @@
     <button type="button" id="lightboxClose">close</button>
   </dialog>
 
-  <script src="../case-study.js?v=fast1"></script>
+  <script src="../case-study.js?v=content2"></script>
   <script src="../cursor.js?v=fast1"></script>
 </body>
 </html>

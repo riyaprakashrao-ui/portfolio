@@ -790,10 +790,6 @@ a.spot:focus-visible {
   .about-panel {
     transition: none;
   }
-
-  .case-scroll img {
-    animation: none;
-  }
 }
 
 @media (max-width: 800px) {
@@ -1435,29 +1431,59 @@ a.spot:focus-visible {
   align-items: center;
 }
 
-.case-scroll {
-  --scroll-frame: 520px;
-  width: 100%;
-  height: var(--scroll-frame);
-  overflow: hidden;
+.case-split.is-content {
+  align-items: start;
+  margin-top: 2rem;
+}
+
+.case-split.is-content h4 {
+  margin-top: 0;
+}
+
+.case-scroll-wrap {
+  position: relative;
+  height: 520px;
   border: 1px solid rgba(10, 31, 214, 0.18);
-  cursor: zoom-in;
+}
+
+.case-scroll {
+  height: 100%;
+  overflow-y: auto;
+  padding-right: 20px;
+  scrollbar-width: none;
+}
+
+.case-scroll::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 .case-scroll img {
+  display: block;
   width: 100%;
   height: auto;
-  animation: case-scroll 18s ease-in-out infinite alternate;
 }
 
-.case-scroll:hover img,
-.case-scroll:focus-visible img {
-  animation-play-state: paused;
+.case-scroll-track {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  bottom: 6px;
+  width: 8px;
+  border-radius: 999px;
+  background: rgba(10, 31, 214, 0.12);
 }
 
-@keyframes case-scroll {
-  from { transform: translateY(0); }
-  to { transform: translateY(calc(-100% + var(--scroll-frame))); }
+.case-scroll-thumb {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  min-height: 36px;
+  border-radius: 999px;
+  background: var(--blue);
+  cursor: grab;
+  touch-action: none;
 }
 
 .case-assumptions {
