@@ -790,6 +790,10 @@ a.spot:focus-visible {
   .about-panel {
     transition: none;
   }
+
+  .case-scroll img {
+    animation: none;
+  }
 }
 
 @media (max-width: 800px) {
@@ -1429,6 +1433,31 @@ a.spot:focus-visible {
 
 .case-split.is-middle {
   align-items: center;
+}
+
+.case-scroll {
+  --scroll-frame: 520px;
+  width: 100%;
+  height: var(--scroll-frame);
+  overflow: hidden;
+  border: 1px solid rgba(10, 31, 214, 0.18);
+  cursor: zoom-in;
+}
+
+.case-scroll img {
+  width: 100%;
+  height: auto;
+  animation: case-scroll 18s ease-in-out infinite alternate;
+}
+
+.case-scroll:hover img,
+.case-scroll:focus-visible img {
+  animation-play-state: paused;
+}
+
+@keyframes case-scroll {
+  from { transform: translateY(0); }
+  to { transform: translateY(calc(-100% + var(--scroll-frame))); }
 }
 
 .case-assumptions {
